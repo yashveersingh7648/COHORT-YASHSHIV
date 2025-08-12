@@ -1,0 +1,202 @@
+.dashboardContainer {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  background-color: #f7f7f7;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #222;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.tabButton {
+  background: none;
+  border: none;
+  color: white;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.tabButton:hover {
+  background-color: #333;
+}
+
+.tabIcon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.activeTab {
+  background-color: #444;
+}
+
+.checkIcon {
+  position: absolute;
+  right: 15px;
+  color: #4caf50;
+}
+
+/* Content area */
+.content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #fff;
+}
+
+/* Progress bar */
+.progressBarWrapper {
+  margin-bottom: 2rem;
+}
+
+.progressText {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.progressOuter {
+  background-color: #e0e0e0;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progressInner {
+  height: 100%;
+  background-color: #2196f3;
+  transition: width 0.3s ease;
+}
+
+/* Form inputs */
+.formGroup {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup input[type="file"],
+.formGroup input[type="number"],
+.formGroup input[type="date"] {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .dashboardContainer {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .tabButton {
+    flex: 1 0 auto;
+    padding: 1rem;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .checkIcon {
+    position: static;
+    margin-left: 8px;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}
+
+
+.submitButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+
+.hiddenCard {
+  opacity: 0.7;
+  border-left: 4px solid #ff9800;
+}
+
+.removedCard {
+  opacity: 0.5;
+  border-left: 4px solid #f44336;
+}
+
+.hiddenStatus {
+  color: #ff9800;
+  font-size: 0.8rem;
+}
+
+.removedStatus {
+  color: #f44336;
+  font-size: 0.8rem;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+}
+
+.hideBtn, .unhideBtn, .deleteBtn, .restoreBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 0.9rem;
+}
+
+.hideBtn {
+  color: #ff9800;
+}
+
+.unhideBtn {
+  color: #4caf50;
+}
+
+.deleteBtn {
+  color: #f44336;
+}
+
+.restoreBtn {
+  color: #2196f3;
+}

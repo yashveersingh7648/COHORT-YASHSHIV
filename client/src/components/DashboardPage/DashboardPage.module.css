@@ -1,0 +1,553 @@
+.dashboardContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarHeader {
+  padding: 1rem;
+  border-bottom: 1px solid #34495e;
+  margin-bottom: 1rem;
+}
+
+.navMenu {
+  flex: 1;
+}
+.infoIcon{
+  color: #0D5EA6;
+}
+.infoCard svg{
+  color: #4f46e5;
+}
+.tabButton {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.tabButton:hover {
+  background-color: #34495e;
+}
+
+.activeTab {
+  background-color: #3498db;
+}
+
+.tabIcon {
+  margin-right: 0.5rem;
+}
+
+.sidebarFooter {
+  padding: 1rem;
+  border-top: 1px solid #34495e;
+  font-size: 0.8rem;
+  color: #bdc3c7;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.contentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0rem;
+}
+
+.searchForm {
+  display: flex;
+  gap: 1rem;
+}
+
+.searchInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 700px;
+  font-size: 1rem;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  color: #666;
+}
+
+.searchButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.searchButton:hover {
+  background-color: #4338ca;
+}
+
+.twoColumnGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: .6rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* overflow-x: hidden; */
+      padding: .4rem;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.cardBanner {
+  position: relative;
+  height: 100px;
+  background-color: #f0f0f0;
+}
+
+.bannerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.defaultBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #e0e0e0;
+}
+
+.bannerLogo {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+  background-color: white;
+  object-fit: cover;
+  bottom: -40px;
+  left: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.defaultLogo {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: -40px;
+  left: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  padding: 2rem 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #4f46e5;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.cardTitle {
+  flex: 1;
+}
+
+.cardTitle h3 {
+     margin: 0;
+    font-size: 1.25rem;
+    color: #0D5EA6;
+    margin-left: 5rem;
+    margin-top: -1rem;
+}
+
+.partnerType {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #fde047;
+  color: #854d0e;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* .cardContent {
+  padding: 0 1.5rem .4rem;
+} */
+
+.cardData {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* .infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+} */
+.infoItem {
+    display: flex
+;
+    align-items: center;
+    gap: 0.5rem;
+        font-weight: 600;
+    font-size: 0.9rem;
+    color: #0c0c0c;
+    /* background-color: rgba(0, 0, 0, 0.1); */
+        background-color: rgb(0 0 0 / 4%);
+    padding: .3rem .3rem;
+    border-radius: .5rem;
+    box-shadow: 1px 1px 1px 2px #0d5ea633;
+}
+.pdfLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4f46e5;
+  text-decoration: none;
+  /* margin-top: 1rem; */
+  /* padding: 0.5rem; */
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.pdfLink:hover {
+  background-color: #f0f0ff;
+}
+
+.cardFooter {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 1rem;
+}
+
+.primaryButton {
+  flex: 1;
+  padding: 0.75rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.primaryButton:hover {
+  background-color: #4338ca;
+}
+
+.secondaryButton {
+  flex: 1;
+  padding: 0.75rem;
+  background-color: white;
+  color: #4f46e5;
+  border: 1px solid #4f46e5;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.secondaryButton:hover {
+  background-color: #f0f0ff;
+}
+
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  color: #666;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f0f0f0;
+  border-top-color: #4f46e5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.errorState {
+  padding: 2rem;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.emptyState {
+  padding: 4rem;
+  text-align: center;
+  color: #666;
+}
+
+
+
+
+
+
+.shareContainer {
+  position: relative;
+  margin-left: auto;
+}
+
+.shareButton {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.shareButton:hover {
+  color: #333;
+}
+
+.shareDropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 5000;
+  width: 150px;
+}
+
+.shareDropdown button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.shareDropdown button:hover {
+  background-color: #f5f5f5;
+}
+
+
+
+/* .shareDropdown {
+  position: absolute;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 5000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  min-width: 180px;
+} */
+
+.shareDropdown button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 14px;
+}
+
+.shareDropdown button:hover {
+  background: #f5f5f5;
+}
+
+.shareDropdown svg {
+  margin-right: 8px;
+  width: 16px;
+}
+
+/* Keep existing styles and add these for the new icons */
+.shareButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.shareButton:hover {
+  color: #333;
+}
+
+.shareContainer {
+  position: relative;
+}
+
+
+/* Search Bar Styles */
+.desktopSearchContainer {
+  display: none;
+  width: 100%;
+  max-width: 500px;
+}
+
+.searchForm {
+  display: flex;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 40px;
+}
+
+.locationBtn {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background-color: #2d2d2d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-right: 1px solid #444;
+  gap: 6px;
+}
+
+.searchInput {
+  flex-grow: 1;
+  padding: 0 12px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+
+.searchBtn {
+  padding: 0 16px;
+  background-color: #0D5EA6;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile Search */
+.mobileSearchContainer {
+  width: 100%;
+  margin-top: 12px;
+  display: block;
+}
+
+.mobileSearchForm {
+  display: flex;
+  width: 100%;
+}
+
+.mobileSearchInput {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.mobileSearchBtn {
+  padding: 8px 16px;
+  background-color: #0D5EA6;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+
+
+
+
+
+.hideBtn {
+  color: #ff9800;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  color: #f44336;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+}

@@ -1,0 +1,617 @@
+/* Base Styles */
+.dashboardContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarHeader {
+  padding: 1rem;
+  border-bottom: 1px solid #34495e;
+  margin-bottom: 1rem;
+}
+
+.sidebarHeader h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.navMenu {
+  flex: 1;
+}
+
+.tabButton {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.tabButton:hover {
+  background-color: #34495e;
+}
+
+.activeTab {
+  background-color: #3498db;
+}
+
+.tabIcon {
+  margin-right: 0.5rem;
+}
+
+.sidebarFooter {
+  padding: 1rem;
+  border-top: 1px solid #34495e;
+  font-size: 0.8rem;
+  color: #bdc3c7;
+  text-align: center;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.contentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contentHeader h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #2c3e50;
+}
+
+.searchForm {
+  flex: 1;
+  min-width: 300px;
+  max-width: 800px;
+}
+
+.searchControls {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.searchSelect {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+}
+
+.searchInputContainer {
+  flex: 1;
+  position: relative;
+  min-width: 250px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.searchButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.searchButton:hover {
+  background-color: #4338ca;
+}
+
+.twoColumnGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cardBanner {
+  position: relative;
+  height: 120px;
+  background-color: #f0f0f0;
+}
+
+.bannerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.defaultBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #e0e0e0;
+  color: #666;
+}
+
+.bannerLogo {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+  background-color: white;
+  object-fit: cover;
+  bottom: -40px;
+  left: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.defaultLogo {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: -40px;
+  left: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: #666;
+}
+
+.cardHeader {
+  padding: 3rem 1.5rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+  background-color:  antiquewhite;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #4f46e5;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  flex: 1;
+}
+
+.cardTitle h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #2c3e50;
+}
+
+.companyType {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.shareContainer {
+  position: relative;
+  margin-left: auto;
+}
+
+.shareButton {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shareButton:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.shareDropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 10;
+  width: 180px;
+  overflow: hidden;
+}
+
+.shareDropdown button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.shareDropdown button:hover {
+  background-color: #f5f5f5;
+}
+
+.cardContent {
+  padding: 0 1.5rem 1rem;
+}
+
+.cardData {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: #555;
+  padding: 0.5rem 0;
+}
+
+.infoIcon {
+  color: #4f46e5;
+  font-size: 1rem;
+  min-width: 20px;
+}
+
+.cardFooter {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 1rem;
+}
+
+.primaryButton {
+  flex: 1;
+  padding: 0.75rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.primaryButton:hover {
+  background-color: #4338ca;
+}
+
+.secondaryButton {
+  flex: 1;
+  padding: 0.75rem;
+  background-color: white;
+  color: #4f46e5;
+  border: 1px solid #4f46e5;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.secondaryButton:hover {
+  background-color: #f0f0ff;
+}
+
+/* Loading and Error States */
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  color: #666;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f0f0f0;
+  border-top-color: #4f46e5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.errorState {
+  padding: 2rem;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.errorState p {
+  margin-bottom: 1rem;
+}
+
+.retryButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #b91c1c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.retryButton:hover {
+  background-color: #991b1b;
+}
+
+.emptyState {
+  padding: 4rem;
+  text-align: center;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.emptyState h3 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .twoColumnGrid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardContainer {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    padding: 0.5rem;
+  }
+  
+  .navMenu {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+  }
+  
+  .tabButton {
+    margin-bottom: 0;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+  }
+  
+  .content {
+    padding: 1rem;
+  }
+  
+  .contentHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .searchControls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .searchSelect {
+    width: 100%;
+  }
+  
+  .twoColumnGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+/* Form Container */
+.formContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+   background-color: #3498db3b;
+  border-radius: 2rem;
+  /* border-radius: 8px; */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit Button */
+.submitContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.submitButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submitButton:hover {
+  background-color: #45a049;
+}
+
+.submitButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.spinnerIcon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Check Icon */
+.checkIcon {
+  color: #4CAF50;
+  margin-left: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 15px;
+  }
+  
+  .contentHeader h1 {
+    font-size: 1.5rem;
+  }
+}
+
+
+
+
+
+
+/* StatusDashboard.module.css में */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Admincreate.module.css में */
+.adminCreateContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
