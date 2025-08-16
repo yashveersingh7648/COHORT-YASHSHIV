@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useAuth } from '../../context/AuthContext';
 
 // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const DashboardTabs = ({onSave, onCancel}) => {
   const { user, token, logout } = useAuth();

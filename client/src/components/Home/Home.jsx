@@ -4,6 +4,7 @@ import BlurText from "./BlurText";
 import { Link } from 'react-router-dom';
 import ThumbnailSlider from '../ImageSlider';
 import { useAuth } from '../../context/AuthContext';
+import PlatformHighlights from "../PlatformHighlights"
 import axios from 'axios';
 import { 
   FaCheckCircle, 
@@ -14,7 +15,11 @@ import {
   FaLock,
   FaBell,
   FaMoneyBillWave,
-  FaUsers 
+  FaUsers ,
+   FaLink, 
+  FaBriefcase, 
+  FaUserTie, 
+  FaChartLine
 } from "react-icons/fa";
 
 const Home = () => {
@@ -24,7 +29,7 @@ const Home = () => {
   const [error, setError] = useState(null);
   // const BASE_URL = "http://localhost:8000";
 // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 
 
@@ -300,6 +305,70 @@ Searching for reliable and region-specific recovery agencies? Our platform empow
   </div>
 </section>
 
+
+ <section className="achieve-section">
+      <div className="container">
+        <div className="heading-container1">
+  <h4 className="main-heading">Achieve your success with Suppcohort</h4>
+</div>
+<div className="heading-container1">
+  <h5 className="main-headings">We connect all the entities/people of debt management together</h5>
+</div>
+        {/* <div className="section-header">
+          <h2>Achieve your success with Suppcohort</h2>
+          <p className="subtitle">We connect all the entities/people of debt management together</p>
+        </div> */}
+
+        <div className="benefits-grid">
+          {/* Equal Opportunity */}
+          <div className="benefit-card">
+            <div className="benefit-icon">
+              <FaUsers size={30} />
+            </div>
+            <div className="benefit-content">
+              <h3>Equal Opportunity</h3>
+              <p>We provide equal opportunity to All, no matter your team size or how new you are.</p>
+            </div>
+          </div>
+
+          {/* Lenders */}
+          <div className="benefit-card">
+            <div className="benefit-icon">
+              <FaBriefcase size={30} />
+            </div>
+            <div className="benefit-content">
+              <h3>For Lenders</h3>
+              <p>Publish business opportunity for service partners and job opportunity for job seekers.</p>
+            </div>
+          </div>
+
+          {/* Service Partners */}
+          <div className="benefit-card">
+            <div className="benefit-icon">
+              <FaUserTie size={30} />
+            </div>
+            <div className="benefit-content">
+              <h3>For Service Partners</h3>
+              <p>Upload your profile and publish job opportunity for job seekers.</p>
+            </div>
+          </div>
+
+          {/* Admirers */}
+          <div className="benefit-card">
+            <div className="benefit-icon">
+              <FaSearch size={30} />
+            </div>
+            <div className="benefit-content">
+              <h3>For Admirers/Guests</h3>
+              <p>Visit and explore the portal to connect with the world of debt management and opportunities.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<PlatformHighlights />
+
       <section className="testimonial-section">
         <div className="heading-container1">
   <h4 className="main-heading">Agency Testimonials</h4>
@@ -314,6 +383,26 @@ Searching for reliable and region-specific recovery agencies? Our platform empow
           <span>— Operations Head, Urban NBFC Pvt. Ltd.</span>
         </blockquote>
       </section>
+
+
+   
+<section>
+    <div className="hero-banner"
+    style={{ backgroundImage: "url('/uploads/join.jpg')" }}
+    >
+  <div className="banner-overlay"></div>
+  <div className="banner-content">
+    <h4 className="banner-title">Join Us</h4>
+    <p className="banner-subtitle"> Whether you're offering services, seeking opportunities, or simply admiring the industry—
+          Suppcohort is your gateway to connect, collaborate, learn, and grow.</p>
+    <div className="banner-buttons">
+      <a href="/Contact" className="cta-btn primary-btn">Contact Us</a>
+  
+    </div>
+    
+  </div>
+</div>
+</section>
 
       <section className="get-started-section">
           <div className="heading-container1">

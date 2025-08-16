@@ -11,7 +11,7 @@ import {
 import styles from "./Contact.module.css";
 
 // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -136,7 +136,8 @@ const handleSendMessage = async (e) => {
           <div className={styles.terminalDotYellow}></div>
           <div className={styles.terminalDotGreen}></div>
           <span className={styles.terminalTitle}>
-            contact@UpSale.com
+            support@suppcohort.com
+
           </span>
         </div>
 
@@ -331,15 +332,18 @@ const handleSendMessage = async (e) => {
               <div className={styles.contactInfoContent}>
                 <div className={styles.contactInfoItem}>
                   <FaMapMarkerAlt className={styles.contactIcon} />
-                  <p className={styles.contactText}>Cohort Technology  Noida</p>
+                  <p className={styles.contactText}>Bldg No 5, 2nd Floor, Park End, Vikas Marg, Preet Vihar
+New Delhi - 110092</p>
                 </div>
                 <div className={styles.contactInfoItem}>
                   <FaPhone className={styles.contactIcon} />
-                  <p className={styles.contactText}>+91 1204375355</p>
+                  <p className={styles.contactText}>+91 98731 20702
+</p>
                 </div>
                 <div className={styles.contactInfoItem}>
                   <FaEnvelope className={styles.contactIcon} />
-                  <p className={styles.contactText}>cohort@company.com</p>
+                  <p className={styles.contactText}>support@suppcohort.com
+</p>
                 </div>
               </div>
 

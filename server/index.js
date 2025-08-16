@@ -26,6 +26,7 @@ const lenderRoutes = require('./routes/lenders');
 const guestRoutes = require('./routes/guest');
 const manpowerRoutes = require('./routes/manpower');
 const apiRoutes = require('./routes/api');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -144,6 +145,11 @@ app.use('/api/guest', guestRoutes);
 // Routes
 app.use('/api/busnies', busniesRoutes);
 
+
+app.use('/api', authRoutes); 
+// app.use('/api/auth', authRoutes);
+// OR
+// app.use('/auth', authRoutes);
 // app.use('/api/companies', agencyRoutes); 
 // 3. ADDED: Debug Endpoints
 app.get('/file-info', (req, res) => {
@@ -198,7 +204,6 @@ app.post("/api/register", async (req, res) => {
     const exists = await User.findOne({ email: email.toLowerCase().trim() });
     if (exists) return res.status(400).json({ error: "User already exists" });
 
-    // 👉 Password hashing
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 

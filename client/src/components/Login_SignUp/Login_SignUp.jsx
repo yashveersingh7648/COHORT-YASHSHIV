@@ -1,8 +1,8 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import jwtDecode from "jwt-decode";
 import styles from './Login_SignUp.module.css';
 import { useAuth } from '../../context/AuthContext';
@@ -127,39 +127,40 @@ const handleSubmit = async (e) => {
     }
   };
 
+
+
 const handleGoogleSuccess = async (credentialResponse) => {
   try {
-    const res = await fetch('/api/auth/google', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: credentialResponse.credential })
-    });
-
-    const data = await res.json();
+    setIsLoading(true);
     
-    if (!res.ok) {
-      if (data.authMethod === 'local') {
-        return setErrors({ 
-          general: 'This account uses email/password login',
-          showEmailLogin: true
-        });
-      }
-      throw new Error(data.error || 'Google login failed');
-    }
+    // ✅ Correct URL - only one /api prefix
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/google`,
+      { token: credentialResponse.credential }
+    );
 
-    localStorage.setItem('token', data.token);
+    const { token, user } = response.data;
+    
+    localStorage.setItem('token', token);
     loginAgency({
-      id: data.user._id,
-      name: data.user.name,
-      email: data.user.email,
+      id: user._id,
+      name: user.name,
+      email: user.email,
       isAgencyLogin: true
     });
+    
     navigate('/DashboardTabs');
-
   } catch (error) {
-    setErrors({ general: error.message });
+    console.error('Google login error:', error);
+    setErrors({
+      general: error.response?.data?.message || 
+             'Google login failed. Please try again.'
+    });
+  } finally {
+    setIsLoading(false);
   }
 };
+
   
 
    const handleSuccess = async (credentialResponse) => {
@@ -189,7 +190,14 @@ const handleGoogleSuccess = async (credentialResponse) => {
     navigate('/mobilelogin');
   };
 
+// Temporary add this in your component
+useEffect(() => {
+  console.log("Client ID:", import.meta.env.VITE_GOOGLE_CLIENT_ID);
+  console.log("Redirect URI:", import.meta.env.VITE_GOOGLE_REDIRECT_URI);
+}, []);
+
   return (
+     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <div className={styles.container}>
       <div className={`${styles.signUpContainer} ${!isSignIn ? styles.active : ''}`}>
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -268,7 +276,7 @@ const handleGoogleSuccess = async (credentialResponse) => {
           <a href="#" className={styles.anchor}>Forgot your password?</a>
           <button type="submit" className={styles.button}>Sign In</button>
 
-          <GoogleLogin
+          {/* <GoogleLogin
             onSuccess={handleSuccess}
             onError={() => {
               alert("Google login failed. Please try again.");
@@ -279,8 +287,19 @@ const handleGoogleSuccess = async (credentialResponse) => {
             size="large"
             shape="rectangular"
             text="signin_with"
-          />
-
+          /> */}
+ <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={() => {
+                  setErrors({ general: 'Google login failed' });
+                }}
+                useOneTap
+                auto_select
+                theme="filled_blue"
+                size="large"
+                shape="rectangular"
+                text="signin_with"
+              />
          
         </form>
       </div>
@@ -300,6 +319,7 @@ const handleGoogleSuccess = async (credentialResponse) => {
         </div>
       </div>
     </div>
+    </GoogleOAuthProvider>
   );
 };
 

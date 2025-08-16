@@ -12,7 +12,7 @@ import AsyncSelect from 'react-select/async';
 Modal.setAppElement('#root');
 
 // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const Navbar = ({ onSearch }) => {
    const [searchLoading, setSearchLoading] = useState(false); 
@@ -100,28 +100,31 @@ const loadOptions = async (inputValue, callback) => {
   setSearchLoading(true);
   
   try {
-    // Correct endpoint with /api prefix and no trailing slash
-    const response = await axios.get(`${API_URL}/api/lenders?search=${inputValue}`);
+    // Correct API endpoint with /api prefix
+    const response = await axios.get(`${API_URL}/api/lenders/?search=${inputValue}`);
     
-    // Handle response safely
-    const data = response?.data?.data || [];
+    // Secure data handling
+    const lenders = response?.data?.data || [];
     
-    const options = data.map(lender => ({
-      label: lender.lenderName,
-      value: lender._id,
-      domain: lender.domain
+    const options = lenders.map(lender => ({
+      label: lender.lenderName || 'Unknown Lender',
+      value: lender._id || 'other',
+      domain: lender.domain || 'other'
     }));
 
     // Add default "Other" option
-    options.unshift({ 
-      label: "Other", 
-      value: "other", 
-      domain: "other" 
-    });
+    if (!options.some(o => o.label === "Other")) {
+      options.unshift({
+        label: "Other",
+        value: "other",
+        domain: "other"
+      });
+    }
 
     callback(options);
-  } catch (err) {
-    console.error("Lenders load error:", err);
+  } catch (error) {
+    console.error("Failed to load lenders:", error);
+    // Return default options on error
     callback([{ label: "Other", value: "other", domain: "other" }]);
   } finally {
     setSearchLoading(false);
@@ -250,6 +253,8 @@ const handleVerifyOtp = async (e) => {
     setIsLoading(false);
   }
 };
+
+
 
   if (authLoading) {
     return <div className={styles.loadingBar}>Loading...</div>;
@@ -467,6 +472,9 @@ const isAdminUser = isBusinessLoggedIn && user?.isAdmin;
             <>
               <li className={styles.navItem}>
                 <Link to="/DashboardPage" className={styles.navLink}>Agency</Link>
+              </li>
+               <li className={styles.navItem}>
+                <Link to="/DashboardTabs" className={styles.navLink}>CreateAgency</Link>
               </li>
               {/* <li className={styles.navItem}>
                 <Link to="/BusDashboard" className={styles.navLink}>Business</Link>

@@ -1,0 +1,125 @@
+.serve-container {
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #2c3e50;
+}
+
+.serve-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.serve-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.serve-subtitle {
+  font-size: 1.3rem;
+    color: #282929;
+  margin-bottom: 0;
+}
+
+.serve-cards {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.serve-card {
+  /* background: white; */
+  /* border-radius: 10px; */
+  padding: 30px 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+    background: #8ecff533;
+    border: 1px solid #3498db;
+    border-radius: 12px;
+    /* transition: 0.3s; */
+    box-shadow: 0 2px 10px #3498db;
+}
+
+.serve-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  background: #f8f9fa;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3498db;
+}
+
+.lender-card .card-icon {
+  background: #e8f4fc;
+  color: #2980b9;
+}
+
+.partner-card .card-icon {
+  background: #f0f7fc;
+  color: #16a085;
+}
+
+.admirer-card .card-icon {
+  background: #f5f6fc;
+  color: #8e44ad;
+}
+
+.serve-card h2 {
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.card-description {
+    font-size: 1.2rem;
+  color: #282929;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* gap: 10px; */
+  gap: 3px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background: #ff6600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.tag svg {
+  margin-right: 5px;
+  font-size: 0.8rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .serve-header h1 {
+    font-size: 2rem;
+  }
+  
+  .serve-subtitle {
+    font-size: 1rem;
+  }
+  
+  .serve-cards {
+    grid-template-columns: 1fr;
+  }
+}

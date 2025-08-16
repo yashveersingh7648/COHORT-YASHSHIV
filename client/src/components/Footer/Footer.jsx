@@ -29,12 +29,22 @@ const Footer = () => {
               <li>
                 <Link to="/" className={styles.link} onClick={handleFooterLinkClick}>Home</Link>
               </li>
-              {/* <li>
-                <Link to="/store" className={styles.link}>Store</Link>
+            
+              <li>
+                <Link to="/About" className={styles.link} onClick={handleFooterLinkClick}>About Us</Link>
+              </li>
+                <li>
+                <Link to="/Mission" className={styles.link} onClick={handleFooterLinkClick}>Mission & Vision</Link>
               </li>
               <li>
-                <Link to="/about" className={styles.link}>About Us</Link>
-              </li> */}
+                <Link to="/WhySuppcohort" className={styles.link} onClick={handleFooterLinkClick}>Why Suppcohort</Link>
+              </li>
+                <li>
+                <Link to="/WhoWeServe" className={styles.link} onClick={handleFooterLinkClick}>We Serve</Link>
+              </li>
+              <li>
+                <Link to="/Products&Services" className={styles.link} onClick={handleFooterLinkClick}>Products & Services</Link>
+              </li>
               <li>
                 <Link to="/contact" className={styles.link} onClick={handleFooterLinkClick}>Contact Us</Link>
               </li>
@@ -45,9 +55,11 @@ const Footer = () => {
           <div className={styles.section}>
             <h3 className={styles.heading}>Contact Info</h3>
             <ul className={styles.contact}>
-              <li>Email: cohort@company.com</li>
-              <li>Phone: +91 1204375355</li>
-              <li>Address: Cohort Technology<br /> Noida</li>
+              <li>Email: support@suppcohort.com
+</li>
+              <li>Phone: +91 98731 20702
+</li>
+              <li>Address: Bldg No 5, 2nd Floor, Park End, Vikas Marg, Preet Vihar<br /> New Delhi - 110092</li>
             </ul>
           </div>
 
@@ -73,9 +85,9 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className={styles.copyright}>
-          <p>&copy; {new Date().getFullYear()} All rights reserved By: Cohort Technologies. <b>|</b>
-          <a href="/PrivacyPolicy" className={styles.copyrightLink} onClick={handleFooterLinkClick}> PrivacyPolicy <b>|</b></a>
-          <a href="/ReturnPolicy" className={styles.copyrightLink} onClick={handleFooterLinkClick}> Return-Policy <b>|</b></a></p>
+          <p>&copy; {new Date().getFullYear()} All rights reserved By: Ciphershield Technologies. <b>|</b>
+          <a href="/Policy" className={styles.copyrightLink} onClick={handleFooterLinkClick}> PrivacyPolicy <b>|</b></a>
+          <a href="/ReturnPolicy" className={styles.copyrightLink} onClick={handleFooterLinkClick}> Return-Policy </a></p>
         </div>
       </div>
     </footer>

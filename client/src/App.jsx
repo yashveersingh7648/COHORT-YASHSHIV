@@ -36,6 +36,15 @@ const SignIn1 = lazy(() => import('./components/SignIn1'));
 const SignIn = lazy(() => import('./components/SignIn'));
 const Mobilelogin = lazy(() => import("./components/Mobilelogin.jsx"));
 
+const Policy = lazy(() => import("./components/Policy.jsx"));
+const ReturnPolicy = lazy(() => import("./components/ReturnPolicy.jsx"));
+
+
+const About = lazy(() => import("./components/About/About.jsx"));
+const Mission = lazy(() => import("./components/Mission&Vision/Mission.jsx"));
+const WhoWeServe = lazy(() => import("./components/WhoWeServe/WhoWeServe.jsx"));
+const ProductsServices = lazy(() => import("./components/Products&Services/Products&Services.jsx"));
+const WhySuppcohort = lazy(() => import("./components/WhySuppcohort/WhySuppcohort.jsx"));
 
 
 function App() {
@@ -124,6 +133,16 @@ const ProtectedRoute = ({ children }) => {
                 <Route path="/AgencyCreate" element={<AgencyCreate />} />
                 <Route path="/Admincreate" element={<Admincreate />} />
  
+  <Route path="/Policy" element={<Policy />} />
+                <Route path="/ReturnPolicy" element={<ReturnPolicy />} />
+
+
+                <Route path="/About" element={<About />} />
+                <Route path="/Mission" element={<Mission />} />
+                <Route path="/WhoWeServe" element={<WhoWeServe />} />
+                <Route path="/Products&Services" element={<ProductsServices />} />
+                <Route path="/WhySuppcohort" element={<WhySuppcohort />} />
+
 
 
                   <Route path="/ManageRequirements" element={  <ProtectedRoute>
