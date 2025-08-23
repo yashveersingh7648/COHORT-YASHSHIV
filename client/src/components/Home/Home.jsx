@@ -6,6 +6,8 @@ import ThumbnailSlider from '../ImageSlider';
 import { useAuth } from '../../context/AuthContext';
 import PlatformHighlights from "../PlatformHighlights"
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLink, faBalanceScale, faBullhorn, faIdCard, faGraduationCap, faRocket, faStar } from '@fortawesome/free-solid-svg-icons';
 import { 
   FaCheckCircle, 
   FaSearch, 
@@ -19,7 +21,7 @@ import {
    FaLink, 
   FaBriefcase, 
   FaUserTie, 
-  FaChartLine
+  FaChartLine,
 } from "react-icons/fa";
 
 const Home = () => {
@@ -77,8 +79,191 @@ const whyItems = [
   return (
     <div>
     <div id="heade"></div>
- 
+   <section className="suppcohort-hero">
+      <div className="container">
+        <div className="hero-content-wrapper">
+          <div className="hero-content">
+            <span className="badge">Industry Pioneers</span>
+            <h1>Transforming Debt Management in <span className="highlight">India</span></h1>
+            
+            <div className="suppcohort-description">
+              <p className="hero-text">
+                Suppcohort is a pioneering platform dedicated to the improvement of processes and services in the debt management industry. Our mission is to seamlessly connect all key stakeholders — lenders, support partners, professionals, and aspirants — while creating and expanding the industry's workforce through awareness, education, and empowerment.
+              </p>
+              
+              <h2>The Debt Management Ecosystem in India</h2>
+              <div className="stats-grid">
+                <div className="stat-item">
+                  <span className="stat-number">2,500+</span>
+                  <span className="stat-label">RBI-registered lenders</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">1.5 Lakh+</span>
+                  <span className="stat-label">Lender professionals</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">2.5 Lakh+</span>
+                  <span className="stat-label">Field agents & telecallers</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">1 Lakh+</span>
+                  <span className="stat-label">Legal & compliance experts</span>
+                </div>
+              </div>
+              
+              <p className="closing-statement">
+                In total, an estimated <strong>5 lakh+ growing workforce</strong> engaged across metros, Tier 2/3 cities, and rural India. With trillions of rupees worth of delinquent accounts under management and a fast-growing demand for trained Debt Recovery Agents (DRAs) and ethical recovery professionals, this industry is often described as an iceberg of untapped opportunities and potential.
+              </p>
+            </div>
+            
+            <div className="hero-buttons">
+              <a href="/Contact" className="secondary-btn">Get Started</a>
+              {/* <a href="/contact" className="outline-btn">Get Involved</a> */}
+            </div>
+          </div>
+          
+          {/* <div className="hero-image">
+            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Debt management professionals" />
+          </div> */}
+        </div>
+      </div>
+    </section>
+
+
+<div className="heading-container1">
+  <h4 className="main-heading">At Suppcohort, we cater to three primary user groups:</h4>
+</div>
 <section>
+    <div className="services-section">
+  
+  
+  <div className="services-grid">
+    <div className="service-cards">
+      <div className="card-image" style={{ backgroundImage: "url('/uploads/LendersTeams.jpg')" }}>
+        <div className="card-overlaye">
+          <span class="card-category">Lenders</span>
+          <h3 class="card-title">Lenders’ Teams</h3>
+          <p class="card-description">Recovery, collection, and legal professionals from Banks, NBFCs, ARCs, Microfinance, and Fintech.
+</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-cards">
+      <div class="card-image" style={{ backgroundImage: "url('/uploads/SupportPartners.jpg')" }}>
+        <div class="card-overlaye">
+          <span class="card-category">Support</span>
+          <h3 class="card-title">Support Partners</h3>
+          <p class="card-description"> Agencies or entities offering debt collection, recovery, or legal services to lenders.
+</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-cards">
+      <div class="card-image" style={{ backgroundImage: "url('/uploads/AdmirersGuests.jpg')" }}>
+        <div class="card-overlaye">
+          <span class="card-category">Admirers</span>
+          <h3 class="card-title">Admirers/Guests</h3>
+          <p class="card-description">Experts, individuals, or companies exploring opportunities, learning, or seeking careers in the industry.
+</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+ <section className="user-groups">
+      <div className="container">
+       
+        
+         <div className="key-features">
+                 <div className="heading-container1">
+  <h4 className="main-heading">Key Features of Suppcohort</h4>
+</div>
+<div className="heading-container1 ">
+  <h5 className="main-headings">Our platform is designed to transform the debt management industry</h5>
+</div>
+      {/* <div className="features-header">
+        <h2>Key Features of Suppcohort</h2>
+        <p>Our platform is designed to transform the debt management industry</p>
+      </div> */}
+      
+      <div className="features-grid">
+        <div className="feature-item">
+          <div className="feature-icon">
+            <FontAwesomeIcon icon={faLink} />
+          </div>
+          <div className="feature-content">
+            <h4>Unified Platform</h4>
+            <p>Connecting all people and entities in debt management.</p>
+          </div>
+        </div>
+        
+        <div className="feature-item">
+          <div className="feature-icon">
+            <FontAwesomeIcon icon={faBalanceScale} />
+          </div>
+          <div className="feature-content">
+            <h4>Equal Opportunity</h4>
+            <p>For everyone — regardless of team size or market experience.</p>
+          </div>
+        </div>
+        
+        <div className="feature-item">
+          <div className="feature-icon">
+            <FontAwesomeIcon icon={faBullhorn} />
+          </div>
+          <div className="feature-content">
+            <h4>Business Opportunities</h4>
+            <p>Lenders can publish opportunities for service partners and jobs for seekers.</p>
+          </div>
+        </div>
+        
+        <div className="feature-item">
+          <div className="feature-icon">
+            <FontAwesomeIcon icon={faIdCard} />
+          </div>
+          <div className="feature-content">
+            <h4>Profile Showcase</h4>
+            <p>Service partners can showcase their profiles and create opportunities for professionals.</p>
+          </div>
+        </div>
+        
+        <div className="feature-item">
+          <div className="feature-icon">
+            <FontAwesomeIcon icon={faGraduationCap} />
+          </div>
+          <div className="feature-content">
+            <h4>Learning Hub</h4>
+            <p>Admirers/guests can explore, learn, and connect with the debt management world.</p>
+          </div>
+        </div>
+        
+        <div className="feature-item">
+          <div className="feature-icon">
+            <FontAwesomeIcon icon={faRocket} />
+          </div>
+          <div className="feature-content">
+            <h4>Growth Platform</h4>
+            <p>Whether you are offering, servicing, seeking, or admiring — Suppcohort is the trusted platform.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="closing-statement">
+        <div className="closing-content">
+          <FontAwesomeIcon icon={faStar} className="closing-icon" />
+          <p>Whether you are offering, servicing, seeking, or admiring — Suppcohort.com is the trusted platform designed to connect, collaborate, learn, and grow within the debt management industry.</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </section>
+    
+
+{/* <section>
     <div className="services-grid">
  <div className="service-card">
     <div className="card-glow"></div>
@@ -96,7 +281,7 @@ const whyItems = [
 />
         
       </h2>
-  <h3 className="banner-heading">
+  <h3 className="banner-heading ">
         <BlurText
   text="of updating and uploading profile…some market facts ……business providers and approximate business opportunity availability.
 Encouraging word to upload profile and become part of the community\ race.  "
@@ -125,115 +310,9 @@ Encouraging word to upload profile and become part of the community\ race.  "
 
  
 </div>
-</section>
-
-<div className="heading-container1">
-  <h4 className="main-heading">Welcome to India's Premier B2B Marketplace for Recovery Agencies & Financial Institutions</h4>
-</div>
-<div className="heading-container1">
-  <h5 className="main-headings">Your Trusted Platform for Recovery Agency Discovery and Collaboration</h5>
-</div>
-
-<section>
-    <div className="services-grid">
- <div className="service-card1">
-    <div className="card-glow1"></div>
-
-  
-
-    <div className="service-image">
-      <img src="/uploads/recovery.png" alt="Service Illustration" />
-    </div>
+</section> */}
 
 
-      <div className="service-content">
-      {/* <div className="card-icon">
-         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
-          strokeWidth="2" viewBox="0 0 24 24" className="icon-svg">
-          <path d="M12 2a10 10 0 0 0 0 20m0-20a10 10 0 0 1 0 20m0-20v20m0-20H2m10 0h10" />
-        </svg>
-      </div> */}
-      <h2 className="banner-headings">
-        For Recovery Agencies (First Party)
-      </h2>
-      <h2 className="banner-heading1">
- <BlurText
-  text="About cohort and it’s feature and benefit "
-  delay={150}
-  animateBy="words"
-  direction="top"
-  onAnimationComplete={handleAnimationComplete}
-  className="text-2xl animations"
-/>
-        
-      </h2>
-  <h3 className="banner-headinge"> 
-Are you a registered Recovery Agency looking to partner with leading banks, NBFCs, and financial institutions? Our platform gives you a verified digital presence and direct access to lenders actively searching for partners like you.<br/>
-✔ Verified Agency Profiles<br/>
-✔ PAN India Visibility<br/>
-✔ State, City & Pincode-wise Discoverability<br/>
-✔ Increase Your Client Base<br/>
-      </h3>
-    
-    </div>
-  </div>
-
-
-
- 
-</div>
-</section>
-
-
-
-
-<section>
-  <div className="heading-container1">
-  <h4 className="main-heading">Register today to become a trusted recovery partner.</h4>
-</div>
-  
-    <div className="services-grid">
- <div className="service-card2">
-    <div className="card-glow1"></div>
-
-
-      <div className="service-content">
-     
-      <h2 className="banner-headings">
-        For Banks, NBFCs & Financial Institutions (Second Party)
-Find the Right Agency, Fast.
-
-      </h2>
-      <h2 className="banner-heading1">
- <BlurText
-  text="About cohort and it’s feature and benefit "
-  delay={150}
-  animateBy="words"
-  direction="top"
-  onAnimationComplete={handleAnimationComplete}
-  className="text-2xl animations"
-/>
-        
-      </h2>
-  <h3 className="banner-headinge"> 
-Searching for reliable and region-specific recovery agencies? Our platform empowers you to explore and connect with verified agencies across India—filtered by state, city, pincode, or compliance standards.<br/>
-✔ Easy Search & Filter Tools<br />
-✔ Downloadable Agency Reports<br />
-✔ Direct Communication Channel<br />
-✔ Save Time and Reduce Risk<br />
-
-      </h3>
-    
-    </div>
-      
-
-    <div className="service-image">
-      <img src="/uploads/fiBank.avif" alt="Service Illustration" />
-    </div>
-  </div>
-
-</div>
-</section>
 
 
  <div className="how-modern-wrapper">
@@ -311,7 +390,7 @@ Searching for reliable and region-specific recovery agencies? Our platform empow
         <div className="heading-container1">
   <h4 className="main-heading">Achieve your success with Suppcohort</h4>
 </div>
-<div className="heading-container1">
+<div className="heading-container1 ">
   <h5 className="main-headings">We connect all the entities/people of debt management together</h5>
 </div>
         {/* <div className="section-header">

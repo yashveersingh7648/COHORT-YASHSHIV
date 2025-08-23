@@ -129,41 +129,42 @@ const handleSubmit = async (e) => {
 
 
 
-const handleGoogleSuccess = async (credentialResponse) => {
-  try {
-    setIsLoading(true);
+// const handleGoogleSuccess = async (credentialResponse) => {
+//   try {
+//     setIsLoading(true);
     
-    // ✅ Correct URL - only one /api prefix
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/google`,
-      { token: credentialResponse.credential }
-    );
+//     // ✅ Correct URL - only one /api prefix
+//     const response = await axios.post(
+//       `${import.meta.env.VITE_API_URL}/api/google`,
+//       { token: credentialResponse.credential }
+//     );
 
-    const { token, user } = response.data;
+//     const { token, user } = response.data;
     
-    localStorage.setItem('token', token);
-    loginAgency({
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      isAgencyLogin: true
-    });
+//     localStorage.setItem('token', token);
+//     loginAgency({
+//       id: user._id,
+//       name: user.name,
+//       email: user.email,
+//       image: user.image || user.picture,
+//       isAgencyLogin: true
+//     });
     
-    navigate('/DashboardTabs');
-  } catch (error) {
-    console.error('Google login error:', error);
-    setErrors({
-      general: error.response?.data?.message || 
-             'Google login failed. Please try again.'
-    });
-  } finally {
-    setIsLoading(false);
-  }
-};
+//     navigate('/DashboardTabs');
+//   } catch (error) {
+//     console.error('Google login error:', error);
+//     setErrors({
+//       general: error.response?.data?.message || 
+//              'Google login failed. Please try again.'
+//     });
+//   } finally {
+//     setIsLoading(false);
+//   }
+// };
 
   
 
-   const handleSuccess = async (credentialResponse) => {
+   const handleGoogleSuccess = async (credentialResponse) => {
     try {
       const token = credentialResponse.credential;
       // const decoded = jwtDecode(token); 

@@ -32,6 +32,11 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const otpRoutes = require('./routes/otpRoutes');
 const transporter = require('./utils/emailSender');
+
+
+// const ccavReqHandler = require('./ccavenue/ccavRequestHandler.js');
+// const ccavResHandler = require('./ccavenue/ccavResponseHandler.js');
+
 // const authenticateAgency = require("./middleware/authenticateAgency");
 app.get('/', (req, res) => {
   res.send("API is running");
@@ -146,6 +151,7 @@ app.use('/api/guest', guestRoutes);
 app.use('/api/busnies', busniesRoutes);
 
 
+
 app.use('/api', authRoutes); 
 // app.use('/api/auth', authRoutes);
 // OR
@@ -190,7 +196,15 @@ app.get("/health", (req, res) => {
   });
 });
 
+// Handle CC Avenue Request
+// app.post('/api/ccavRequestHandler', (req, res) => {
+//   ccavReqHandler.ccavRequestHandler(req, res);
+// });
 
+// // Handle CC Avenue Response
+// app.post('/api/ccavResponseHandler', (req, res) => {
+//   ccavResHandler.ccavResponseHandler(req, res);
+// });
 
 // Routes
 app.post("/api/register", async (req, res) => {

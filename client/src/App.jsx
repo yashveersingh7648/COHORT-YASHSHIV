@@ -46,13 +46,20 @@ const WhoWeServe = lazy(() => import("./components/WhoWeServe/WhoWeServe.jsx"));
 const ProductsServices = lazy(() => import("./components/Products&Services/Products&Services.jsx"));
 const WhySuppcohort = lazy(() => import("./components/WhySuppcohort/WhySuppcohort.jsx"));
 
+const LoginPopup = lazy(() => import("./components/LoginPopup.jsx"));
+const LearnDashboard = lazy(() => import("./components/LearnDashboard.jsx"));
+const CommonDebt = lazy(() => import("./components/CommonDebt.jsx"));
 
 function App() {
+  
   // const BASE_URL = "http://localhost:8000";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
 
 const [agencies, setAgencies] = useState([]);
 const [filteredAgencies, setFilteredAgencies] = useState([]);
+
+
+
 
 useEffect(() => {
   const fetchAgencies = async () => {
@@ -92,6 +99,7 @@ const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+
   useEffect(() => {
     if (!user) {
       navigate('/login');
@@ -100,6 +108,8 @@ const ProtectedRoute = ({ children }) => {
 
   return user ? children : null;
 };
+
+
 
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
@@ -143,6 +153,9 @@ const ProtectedRoute = ({ children }) => {
                 <Route path="/Products&Services" element={<ProductsServices />} />
                 <Route path="/WhySuppcohort" element={<WhySuppcohort />} />
 
+                <Route path="/LoginPopup" element={<LoginPopup />} />
+                <Route path="/LearnDashboard" element={<LearnDashboard />} />
+                <Route path="/CommonDebt" element={<CommonDebt />} />
 
 
                   <Route path="/ManageRequirements" element={  <ProtectedRoute>

@@ -2817,6 +2817,8 @@ const DashboardPage = () => {
             },
             pagination: {
               style: {
+                color: 'black',
+                fontSize: '5',
                 borderTop: '2px solid #f97316',
               },
             },

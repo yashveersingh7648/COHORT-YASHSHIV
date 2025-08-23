@@ -21,13 +21,55 @@
 
 
 // 12-07-25
+// const mongoose = require('mongoose');
+
+// const userSchema = new mongoose.Schema({
+//   name: {
+//     type: String,
+//     required: true
+//   },
+//   email: {
+//     type: String,
+//     required: true,
+//     unique: true,
+//     lowercase: true,
+//     trim: true
+//   },
+//   password: {
+//     type: String,
+//     select: false
+//   },
+//   googleId: {
+//     type: String,
+//     unique: true,
+//     sparse: true
+//   },
+//   isGoogleAuth: {
+//     type: Boolean,
+//     default: false
+//   },
+//   profileImage: {
+//     type: String
+//   }
+// }, { timestamps: true });
+
+// module.exports = mongoose.model('User', userSchema);
+
+
+
+
+
+
+
+
+
+
+// 23-08-25
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
+  name: { type: String, required: true },
+  
   email: {
     type: String,
     required: true,
@@ -35,22 +77,38 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
-  password: {
+
+  password: { type: String, select: false },
+  googleId: { type: String, unique: true, sparse: true },
+  isGoogleAuth: { type: Boolean, default: false },
+  profileImage: { type: String },
+
+  userType: {
     type: String,
-    select: false
+    enum: ['lender', 'guest', 'agency', 'admin'],
+    default: 'guest'
   },
-  googleId: {
+
+  lender: {
     type: String,
-    unique: true,
-    sparse: true
+    required: function () {
+      return this.userType === 'lender';
+    }
   },
-  isGoogleAuth: {
-    type: Boolean,
-    default: false
+
+  isAdmin: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: false },
+
+  otp: {
+    code: String,
+    expiresAt: Date
   },
-  profileImage: {
-    type: String
-  }
+
+  lastLogin: { type: Date, default: Date.now }
 }, { timestamps: true });
+
+userSchema.methods.isSessionValid = function () {
+  return this.lastLogin > new Date(Date.now() - 12 * 60 * 60 * 1000);
+};
 
 module.exports = mongoose.model('User', userSchema);
