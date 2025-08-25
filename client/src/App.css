@@ -552,8 +552,8 @@ input:focus {
   background: none;
   border: none;
   cursor: pointer;
-  font-weight: 500;
-  color: #6b7280;
+  font-weight: 900;
+  color: #000000;
   border-bottom: 2px solid transparent;
   transition: all 0.3s ease;
 }
@@ -865,8 +865,8 @@ input:focus {
   background: none;
   border: none;
   cursor: pointer;
-  font-weight: 500;
-  color: #6b7280;
+  font-weight: 600;
+  color: #000000;
   border-bottom: 2px solid transparent;
   transition: all 0.3s ease;
 }

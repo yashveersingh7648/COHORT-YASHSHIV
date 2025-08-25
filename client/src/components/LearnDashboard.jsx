@@ -724,10 +724,10 @@ const SettingsComponent = () => {
                 <h4>Determine Amount & Lender Type</h4>
                 <ul>
                   {/* <li>Debt > ₹20 lakh → Eligible for DRT</li> */}
-                  <li>Debt  ₹20 lakh → Eligible for DRT</li>
+                  <li>Debt &gt; ₹20 lakh → Eligible for DRT</li>
 
                   {/* <li>Debt < ₹20 lakh → Civil Court or ADR</li> */}
-                  <li>Debt  ₹20 lakh → Civil Court or ADR</li>
+                  <li>Debt &lt; ₹20 lakh → Civil Court or ADR</li>
 
                   <li>Lender is Bank/NBFC → SARFAESI or DRT</li>
                   <li>Lender is Private/Unregulated → Civil Court or ADR</li>
@@ -752,7 +752,7 @@ const SettingsComponent = () => {
                       </tr>
                       <tr>
                         {/* <td>Unsecured loan by bank/NBFC > ₹20 lakh</td> */}
-                        <td>Unsecured loan by bank/NBFC  ₹20 lakh</td>
+                        <td>Unsecured loan by bank/NBFC &gt; ₹20 lakh</td>
 
                         <td>Debt Recovery Tribunal (DRT)</td>
                       </tr>
@@ -762,7 +762,7 @@ const SettingsComponent = () => {
                       </tr>
                       <tr>
                         {/* <td>Individual default < ₹20 lakh</td> */}
-                        <td>Individual default  ₹20 lakh</td>
+                        <td>Individual default &lt; ₹20 lakh</td>
 
                         <td>Civil Court (Summary Suit under CPC)</td>
                       </tr>

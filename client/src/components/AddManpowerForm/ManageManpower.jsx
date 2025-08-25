@@ -21,119 +21,127 @@ const ManageManpower = () => {
     fetchManpowerData();
   }, []);
 
-  const fetchManpowerData = async () => {
-    setIsLoading(true);
-    setError(null);
+ const fetchManpowerData = async () => {
+  setIsLoading(true);
+  setError(null);
+  
+  try {
+    const businessUser = JSON.parse(localStorage.getItem('businessUser'));
     
-    try {
-      const businessUser = JSON.parse(localStorage.getItem('businessUser'));
-      const token = businessUser?.token;
-      
-      if (!token) {
-        throw new Error('Please login to view manpower positions');
-      }
-
-      const response = await axios.get(`${API_URL}/api/manpower`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'x-auth-token': token
-        }
-      });
-      
-      if (response.data?.success) {
-        // Filter positions by logged-in user's email
-        const userPositions = response.data.data.filter(
-          position => position.userEmail === businessUser.email
-        );
-        setPositions(userPositions);
-      } else {
-        throw new Error(response.data?.error || 'Invalid response format');
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-      setError(error.response?.data?.error || error.message || 'Failed to fetch positions');
-      
-      if (error.response?.status === 401) {
-        localStorage.removeItem('businessUser');
-        window.location.href = '/business-login';
-      }
-    } finally {
-      setIsLoading(false);
+    if (!businessUser || !businessUser.token) {
+      setError('Please login again');
+      localStorage.removeItem('businessUser');
+      window.location.href = '/business-login';
+      return;
     }
-  };
+
+    const token = businessUser.token;
+    
+    console.log("Frontend user email:", businessUser.email);
+
+    const response = await axios.get(`${API_URL}/api/manpower`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'x-auth-token': token
+      }
+    });
+    
+    console.log("API response data:", response.data);
+    
+    setPositions(response.data.data || []);
+  } catch (error) {
+    console.error('Fetch error:', error);
+    
+    if (error.response?.status === 401) {
+      setError('Session expired. Please login again.');
+      localStorage.removeItem('businessUser');
+      window.location.href = '/business-login';
+    } else {
+      setError(error.response?.data?.error || error.message);
+    }
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const handleEdit = (position) => {
     setEditingPosition({...position});
   };
 
-  const handleUpdate = async () => {
-    try {
-      setIsLoading(true);
-      const businessUser = JSON.parse(localStorage.getItem('businessUser'));
-      const token = businessUser?.token;
-      
-      if (!token) {
-        throw new Error('Session expired. Please login again.');
-      }
+  // Frontend code
+// handleUpdate function mein yeh changes karein:
+const handleUpdate = async () => {
+  try {
+    setIsLoading(true);
+    const businessUser = JSON.parse(localStorage.getItem('businessUser'));
+    const token = businessUser?.token;
 
-      const response = await axios.put(
-        `${API_URL}/api/manpower/${editingPosition._id}`,
-        editingPosition,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'x-auth-token': token,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-
-      if (response.data.success) {
-        setSuccess('Position updated successfully');
-        setTimeout(() => setSuccess(null), 3000);
-        fetchManpowerData();
-        setEditingPosition(null);
-      }
-    } catch (error) {
-      setError(error.response?.data?.error || error.message || 'Update failed');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      setDeletingId(id);
-      const businessUser = JSON.parse(localStorage.getItem('businessUser'));
-      const token = businessUser?.token;
-      
-      if (!token) {
-        throw new Error('Session expired. Please login again.');
-      }
-
-      const response = await axios.delete(`${API_URL}/api/manpower/${id}`, {
+    const response = await axios.put(
+      `${API_URL}/api/manpower/${editingPosition._id}`,
+      editingPosition,
+      {
         headers: {
           'Authorization': `Bearer ${token}`,
-          'x-auth-token': token
+          'Content-Type': 'application/json'
         }
-      });
+      }
+    );
 
-      if (response.data.success) {
-        setSuccess('Position deleted successfully');
-        setTimeout(() => setSuccess(null), 3000);
-        fetchManpowerData();
-      }
-    } catch (error) {
-      setError(error.response?.data?.error || error.message || 'Delete failed');
+    if (response.data.success) {
+      setSuccess('Position updated successfully');
       
-      if (error.response?.status === 401) {
-        localStorage.removeItem('businessUser');
-        window.location.href = '/business-login';
-      }
-    } finally {
-      setDeletingId(null);
+      // YAHAN PAR IMPORTANT CHANGE - Functional update use karein
+      setPositions(prevPositions => 
+        prevPositions.map(pos => 
+          pos._id === editingPosition._id ? response.data.data : pos
+        )
+      );
+      
+      setTimeout(() => setSuccess(null), 3000);
+      setEditingPosition(null);
     }
-  };
+  } catch (error) {
+    setError(error.response?.data?.error || error.message || 'Update failed');
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+const handleDelete = async (id) => {
+  try {
+    setDeletingId(id);
+    const businessUser = JSON.parse(localStorage.getItem('businessUser'));
+    const token = businessUser?.token;
+
+    console.log("Deleting position with ID:", id);
+    console.log("Full URL:", `${API_URL}/api/manpower/${id}`);
+    console.log("Using token:", token);
+
+    const response = await axios.delete(`${API_URL}/api/manpower/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    console.log("Delete response:", response.data);
+    
+    if (response.data.success) {
+      setSuccess('Position deleted successfully');
+      setTimeout(() => setSuccess(null), 3000);
+      
+      // State update karein bina refresh kiye
+      setPositions(prevPositions => 
+        prevPositions.filter(pos => pos._id !== id)
+      );
+    }
+  } catch (error) {
+    console.error('Delete error:', error);
+    setError(error.response?.data?.error || error.message || 'Delete failed');
+  } finally {
+    setDeletingId(null);
+  }
+};
 
   const handleChange = (e) => {
     setEditingPosition({ 
@@ -188,17 +196,13 @@ const ManageManpower = () => {
                   >
                     Edit
                   </button>
-                  <button 
-                    onClick={() => handleDelete(position._id)}
-                    disabled={deletingId === position._id}
-                    className={`${styles.btn} ${styles.deleteBtn}`}
-                  >
-                    {deletingId === position._id ? (
-                      <>
-                        <Spinner size="small" /> Deleting...
-                      </>
-                    ) : 'Delete'}
-                  </button>
+                 <button 
+  onClick={() => handleDelete(position._id)}
+  disabled={deletingId === position._id}
+  className={`${styles.btn} ${styles.deleteBtn}`}
+>
+  {deletingId === position._id ? 'Deleting...' : 'Delete'}
+</button>
                 </div>
               </div>
             ))

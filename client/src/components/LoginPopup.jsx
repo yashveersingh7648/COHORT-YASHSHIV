@@ -579,31 +579,20 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const loadOptions = async (inputValue, callback) => {
   try {
-    // Use the lenders API endpoint (NOT auth/lenders)
     const response = await axios.get(`${API_URL}/api/lenders?search=${inputValue}`);
-    
-    // FIXED: Proper response data handling
     const lenders = response?.data?.data || [];
-    
-    const options = lenders.map(lender => ({
-      label: lender.lenderName || 'Unknown Lender',
-      value: lender._id || lender.lenderName || 'other',
-      domain: lender.domain || 'other'
+
+    const options = lenders.map(l => ({
+      label: l.lenderName,
+      value: l._id,
+      domain: l.domain,
+      originalName: l.lenderName
     }));
 
-    // Always include "Other" option
-    if (!options.some(o => o.label === "Other")) {
-      options.unshift({
-        label: "Other",
-        value: "other",
-        domain: "other"
-      });
-    }
-
+    options.unshift({ label: "Other", value: "other", domain: "other" });
     callback(options);
-  } catch (error) {
-    console.error("Failed to load lenders:", error);
-    // Return default options on error
+  } catch (err) {
+    console.error(err);
     callback([{ label: "Other", value: "other", domain: "other" }]);
   }
 };
@@ -667,71 +656,29 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
     });
   };
 
-  const handleSendOtp = async (e) => {
-    e.preventDefault();
-    
-    if (!email.includes('@')) {
-      setError('Please enter valid email');
-      return;
+const handleSendOtp = async (e) => {
+  e.preventDefault();
+  if (!email || !name || (activeTab === 'lender' && !selectedLender)) return;
+
+  try {
+    const response = await axios.post(`${API_URL}/api/auth/send-otp`, {
+      email: email.trim(),
+      name,
+      userType: activeTab,
+      lenderId: selectedLender?.value,
+      lenderName: selectedLender?.label
+    });
+
+    if (response.data.success) {
+      setShowOtpField(true);
+      setOtpResendTimer(30);
+    } else {
+      setError(response.data.message);
     }
-
-    if (!name) {
-      setError('Please enter your name');
-      return;
-    }
-
-    if (activeTab === 'lender' && !selectedLender) {
-      setError('Please select a lender');
-      return;
-    }
-
-    setIsLoading(true);
-    setError('');
-
-    try {
-      const response = await axios.post(`${API_URL}/api/auth/send-otp`, {
-        email: email.trim(),
-        lenderName: selectedLender?.label,
-        name: name,
-        userType: activeTab
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        timeout: 10000
-      });
-
-      if (response.data.success) {
-        setShowOtpField(true);
-        setOtpResendTimer(30);
-        if (response.data.isGuest) {
-          setSelectedLender({ label: 'Other', value: 'other' });
-        }
-      } else {
-        setError(response.data.message);
-        
-        if (response.data.message.includes('No matching lender') && selectedLender?.label === 'Other') {
-          navigate('/BusinessSignupModal', { state: { prefilledEmail: email, prefilledName: name } });
-        }
-      }
-    } catch (err) {
-      let errorMsg = 'Network error';
-      
-      if (err.code === 'ECONNABORTED') {
-        errorMsg = 'Request timeout. Please try again.';
-      } else if (err.response) {
-        errorMsg = err.response?.data?.message || 'Server error';
-      }
-
-      setError(errorMsg);
-      
-      if (errorMsg.includes('No matching lender') && selectedLender?.label === 'Other') {
-        navigate('/BusinessSignupModal', { state: { prefilledEmail: email, prefilledName: name } });
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  } catch (err) {
+    setError(err.response?.data?.message || 'Network error');
+  }
+};
 
   const handleResendOtp = async () => {
     if (otpResendTimer > 0) return;

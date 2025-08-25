@@ -26,45 +26,73 @@
 
 
 // vite.config.js
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+// import { defineConfig } from 'vite';
+// import react from '@vitejs/plugin-react';
+
+// export default defineConfig({
+//   plugins: [
+//     react({
+//       babel: {
+//         plugins: ['babel-plugin-styled-components'], 
+//       },
+//     }),
+//   ],
+
+//   optimizeDeps: {
+//     include: ['jwt-decode'],
+//   },
+
+//   server: {
+//     proxy: {
+//       '/api': {
+//         target: 'https://supcohort.onrender.com:8000',
+//         changeOrigin: true,
+//         secure: false,
+//       },
+//     },
+//   },
+
+//   build: {
+//     chunkSizeWarningLimit: 1000,
+
+//     rollupOptions: {
+//       output: {
+//         manualChunks(id) {
+//           if (id.includes('node_modules')) {
+//             if (id.includes('react')) return 'react-vendor';
+//             if (id.includes('axios')) return 'axios-vendor';
+//             return 'vendor';
+//           }
+//         },
+//       },
+//     },
+//   },
+// });
+
+
+
+
+
+// vite.config.js
+// vite.config.js
+// vite.config.js
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [
     react({
-      babel: {
-        plugins: ['babel-plugin-styled-components'], 
-      },
+      jsxImportSource: "@emotion/react",
+      babel: { plugins: ["@emotion/babel-plugin"] },
     }),
   ],
-
-  optimizeDeps: {
-    include: ['jwt-decode'],
-  },
-
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://supcohort.onrender.com:8000',
-        changeOrigin: true,
-        secure: false,
-      },
+  resolve: {
+    alias: {
+      "hoist-non-react-statics": "hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js",
     },
+    dedupe: ["react", "react-dom", "@emotion/react", "@emotion/styled"],
   },
-
   build: {
-    chunkSizeWarningLimit: 1000,
-
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react')) return 'react-vendor';
-            if (id.includes('axios')) return 'axios-vendor';
-            return 'vendor';
-          }
-        },
-      },
-    },
+    chunkSizeWarningLimit: 1000, // okay to leave high for now
   },
 });

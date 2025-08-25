@@ -668,7 +668,7 @@ const Navbar = ({ onSearch }) => {
         <div className={styles.headerTopRow}>
           <div className={styles.logoContainer}>
             <Link to="/" className={styles.logo}>
-              <img src="/uploads/LogoSuppcohort.jpg" alt="Profile" className={styles.logoImage} />
+              <img src="/uploads/LogoSuppcohort.jpg" alt="Profile"  className={styles.logoImage} />
             </Link>
           </div>
           <div className={styles.mobileControls}>
@@ -739,7 +739,7 @@ const Navbar = ({ onSearch }) => {
                     <li className={styles.accountItem}>
                       <div className={styles.accountContainer}>
                         {user?.image ? (
-                          <img src={user.image} alt="Profile" className={styles.accountImage} />
+                          <img src={user.image} alt="Profile" width={32} height={32} className={styles.accountImage} />
                         ) : (
                           <FiUser className={styles.accountIcon} size={20} />
                         )}
