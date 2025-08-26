@@ -62,17 +62,24 @@
   padding: 15px;
   border-radius: 8px;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
   transition: transform 0.3s ease;
   min-height: 150px;
+
+      /* background: #ffffff33; */
+    border: 1px solid #3498db;
+    box-shadow: 0 2px 10px #3498db;
 }
 
 .slider-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
+    box-shadow: 0 2px 10px #ff6600;
+
 }
 
 .slider-card h3 {
+  font-size: 1.6rem;
   margin-top: 0;
   color: #f78400;
   border-bottom: 1px solid #eee;
@@ -85,7 +92,7 @@
 
 .card-details p {
   font-size: 1.1rem;
-  margin: 5px 0;
+  margin: 1px 0;
 }
 
 .card-details strong {
@@ -258,6 +265,7 @@
   height: 30rem;
   overflow: hidden;
   position: relative;
+  background-color: #274f70;
 }
 
 .slider-track {
@@ -278,13 +286,14 @@
 
 .card-details {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 1rem;
 }
 
 .card-details p {
-  margin: 5px 0;
+  margin: 1px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

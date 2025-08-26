@@ -69,7 +69,6 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  
   email: {
     type: String,
     required: true,
@@ -77,38 +76,27 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
-
   password: { type: String, select: false },
   googleId: { type: String, unique: true, sparse: true },
   isGoogleAuth: { type: Boolean, default: false },
   profileImage: { type: String },
-
   userType: {
     type: String,
     enum: ['lender', 'guest', 'agency', 'admin'],
     default: 'guest'
   },
-
   lender: {
     type: String,
-    required: function () {
-      return this.userType === 'lender';
-    }
+    required: function () { return this.userType === 'lender'; }
   },
-
   isAdmin: { type: Boolean, default: false },
+  isGuest: { type: Boolean, default: false },
   isVerified: { type: Boolean, default: false },
-
   otp: {
     code: String,
     expiresAt: Date
   },
-
   lastLogin: { type: Date, default: Date.now }
 }, { timestamps: true });
-
-userSchema.methods.isSessionValid = function () {
-  return this.lastLogin > new Date(Date.now() - 12 * 60 * 60 * 1000);
-};
 
 module.exports = mongoose.model('User', userSchema);

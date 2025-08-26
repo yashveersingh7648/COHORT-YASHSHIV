@@ -320,11 +320,56 @@ export const unmarkRemovedManpowerId = (id) => {
   return removed;
 };
 
-// Custom hooks
+// Agency Functions
+export const getHiddenAgencyIds = () => {
+  try {
+    return JSON.parse(localStorage.getItem("hiddenAgencyIds")) || {};
+  } catch {
+    return {};
+  }
+};
+
+export const markHiddenAgencyId = (id) => {
+  const hidden = getHiddenAgencyIds();
+  hidden[id] = true;
+  localStorage.setItem("hiddenAgencyIds", JSON.stringify(hidden));
+  return hidden;
+};
+
+export const unmarkHiddenAgencyId = (id) => {
+  const hidden = getHiddenAgencyIds();
+  delete hidden[id];
+  localStorage.setItem("hiddenAgencyIds", JSON.stringify(hidden));
+  return hidden;
+};
+
+export const getRemovedAgencyIds = () => {
+  try {
+    return JSON.parse(localStorage.getItem("removedAgencyIds")) || {};
+  } catch {
+    return {};
+  }
+};
+
+export const markRemovedAgencyId = (id) => {
+  const removed = getRemovedAgencyIds();
+  removed[id] = true;
+  localStorage.setItem("removedAgencyIds", JSON.stringify(removed));
+  return removed;
+};
+
+export const unmarkRemovedAgencyId = (id) => {
+  const removed = getRemovedAgencyIds();
+  delete removed[id];
+  localStorage.setItem("removedAgencyIds", JSON.stringify(removed));
+  return removed;
+};
+
+// Custom hook में agency case add करें
 export const useSyncHiddenRemoved = (type = 'agency') => {
   const getHiddenIdsFn = () => {
     switch (type) {
-      case 'agency': return getHiddenIds();
+      case 'agency': return getHiddenAgencyIds(); // New function
       case 'business': return getHiddenBusinessIds();
       case 'requirement': return getHiddenRequirementIds();
       case 'manpower': return getHiddenManpowerIds();
@@ -334,7 +379,7 @@ export const useSyncHiddenRemoved = (type = 'agency') => {
 
   const getRemovedIdsFn = () => {
     switch (type) {
-      case 'agency': return getRemovedIds();
+      case 'agency': return getRemovedAgencyIds(); // New function
       case 'business': return getRemovedBusinessIds();
       case 'requirement': return getRemovedRequirementIds();
       case 'manpower': return getRemovedManpowerIds();

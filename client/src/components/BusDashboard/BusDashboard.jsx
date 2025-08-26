@@ -284,6 +284,9 @@ const handleSave = (data) => {
   // Business card component
   const BusinessCard = ({ business }) => {
     return (
+      <>
+    <div id="heade"></div>
+
       <div className={styles.card}>
         <div className={styles.cardHeader}>
           <div className={styles.avatar}>
@@ -340,10 +343,14 @@ const handleSave = (data) => {
           <button className={styles.primaryButton}>Contact</button>
         </div>
       </div>
+      </>
     );
   };
 
   return (
+<>
+    <div id="heade"></div>
+
     <div className={styles.dashboardContainer}>
       {/* Sidebar */}
       <div className={styles.sidebar}>
@@ -566,6 +573,7 @@ const handleSave = (data) => {
       </main>
      
     </div>
+    </>
   );
 };
 

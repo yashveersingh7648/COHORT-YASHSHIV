@@ -31,7 +31,7 @@ const ManageManpower = () => {
     if (!businessUser || !businessUser.token) {
       setError('Please login again');
       localStorage.removeItem('businessUser');
-      window.location.href = '/business-login';
+      window.location.href = '/LoginPopup';
       return;
     }
 
@@ -54,8 +54,9 @@ const ManageManpower = () => {
     
     if (error.response?.status === 401) {
       setError('Session expired. Please login again.');
+      
       localStorage.removeItem('businessUser');
-      window.location.href = '/business-login';
+      window.location.href = '/LoginPopup';
     } else {
       setError(error.response?.data?.error || error.message);
     }

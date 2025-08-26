@@ -485,7 +485,7 @@
   
   .contactInfoContainer {
     order: -1;
-    width: 20rem;
+    width: 24rem;
   }
 }
 
@@ -501,6 +501,9 @@
   
   .contactInfoContainer {
     padding: 1rem;
+  }
+  .contactInfoContainer{
+    width: 25rem;
   }
 }
 

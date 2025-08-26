@@ -436,82 +436,100 @@ const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "12h" });
 };
 
-// 🔹 SEND OTP
+const findLender = async ({ lenderId, lenderName }) => {
+  let lender = null;
+
+  // Try by ID first
+  if (lenderId && lenderId !== "other") {
+    lender = await Lender.findById(lenderId);
+  }
+
+  // Try by name
+  if (!lender && lenderName && lenderName !== "Other") {
+    const cleanName = lenderName.trim();
+    const abbreviationMatch = cleanName.match(/\(([^)]+)\)/);
+    const abbreviation = abbreviationMatch ? abbreviationMatch[1].trim() : null;
+
+    lender = await Lender.findOne({
+      $or: [
+        { lenderName: { $regex: `^${cleanName}$`, $options: "i" } },
+        { lenderName: { $regex: cleanName, $options: "i" } },
+        ...(abbreviation ? [
+          { lenderName: { $regex: abbreviation, $options: "i" } },
+          { abbreviations: abbreviation.toUpperCase() }
+        ] : [])
+      ]
+    });
+  }
+
+  return lender;
+};
+
+// SEND OTP
 router.post("/auth/send-otp", async (req, res) => {
   try {
-    const { email, lenderName, name, userType } = req.body;
+    const { email, lenderName, lenderId, name, userType } = req.body;
+    console.log("OTP request:", { email, lenderName, lenderId });
 
-    // ✅ LENDER LOGIN VALIDATION
-    if (userType === "lender" && lenderName && lenderName !== "Other") {
-      const lender = await Lender.findOne({
-        lenderName: { $regex: `^${lenderName.trim()}$`, $options: "i" }, // exact match (case-insensitive + trim)
-      });
+    let lender = null;
+
+    if (userType === "lender") {
+      lender = await findLender({ lenderId, lenderName });
 
       if (!lender) {
         return res.status(404).json({
           success: false,
-          message: "Lender not found. Please select a valid lender.",
+          message: "Lender not found. Please select a valid lender."
         });
       }
 
-      // ✅ email domain validation
-      const emailDomain = email.split("@")[1];
-      if (
-        lender.domain &&
-        emailDomain.toLowerCase() !== lender.domain.toLowerCase()
-      ) {
-        return res.status(400).json({
-          success: false,
-          message: `Email domain does not match ${lender.lenderName}. Please use a valid @${lender.domain} email`,
-        });
+      // Flexible email domain validation
+      const emailDomain = email.split("@")[1].toLowerCase();
+      if (lender.domain && lender.domain !== "other") {
+        const expectedDomains = [
+          lender.domain.toLowerCase(),
+          lender.domain.replace(/\.com$/, '.co.in').toLowerCase(), // pnbgilts.co.in
+          lender.domain.replace(/gilts/, '').toLowerCase()          // pnb.com
+        ];
+        if (!expectedDomains.includes(emailDomain)) {
+          return res.status(400).json({
+            success: false,
+            message: `Email domain does not match ${lender.lenderName}. Please use a valid @${lender.domain} email`,
+            expectedDomain: lender.domain
+          });
+        }
       }
     }
 
-    // ✅ FIND OR CREATE USER
+    // Find or create user
     let user = await User.findOne({ email });
-
     if (!user) {
       user = new User({
         name,
         email,
         userType: userType || "guest",
         lender: userType === "lender" ? lenderName : undefined,
-        isVerified: false,
+        isVerified: false
       });
       await user.save();
     }
 
-    // ✅ GENERATE OTP
+    // Generate OTP
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-    user.otp = {
-      code: otpCode,
-      expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
-    };
+    user.otp = { code: otpCode, expiresAt: new Date(Date.now() + 10 * 60 * 1000) };
     await user.save();
 
-    // (⚡ Replace with email service like Nodemailer)
     console.log(`OTP for ${email}: ${otpCode}`);
 
-    const adminEmails = [
-      "info@ciphershieldtech.com",
-      "admin@ciphershieldtech.com",
-    ];
+    const adminEmails = ["info@ciphershieldtech.com", "admin@ciphershieldtech.com"];
     const isAdmin = adminEmails.includes(email.toLowerCase());
 
-    res.json({
-      success: true,
-      message: "OTP sent successfully",
-      isGuest: user.userType === "guest",
-      isAdmin,
-    });
-  } catch (error) {
-    console.error("Send OTP error:", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Server error: " + error.message });
+    res.json({ success: true, message: "OTP sent successfully", isGuest: user.userType === "guest", isAdmin });
+  } catch (err) {
+    console.error("Send OTP error:", err);
+    res.status(500).json({ success: false, message: "Server error: " + err.message });
   }
 });
-
 // 🔹 RESEND OTP
 router.post("/auth/resend-otp", async (req, res) => {
   try {

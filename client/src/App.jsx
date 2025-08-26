@@ -124,6 +124,7 @@ const ProtectedRoute = ({ children }) => {
 
                 <Route path="/DashboardPage" element={<DashboardPage agencies={filteredAgencies}/>} />
                 <Route path="/BusDashboard" element={<BusDashboard />} />
+                
                  {/* <Route path="/agency/:id" element={<AgencyProfilePage />} /> */}
                 <Route path="/agency/profile" element={<AgencyProfilePage />} />
 <Route path="/agency/edit" element={<EditAgencyProfile />} />

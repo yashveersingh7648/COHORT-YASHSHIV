@@ -139,7 +139,9 @@ app.use("/api/dashboard", dashboardRoutes);
  app.use('/api', otpRoutes);
 // app.use('/api/otp', otpRoutes);
 app.use('/api/agency', agencyRoutes);
+// app.use('/api', requirementRoutes);
 app.use('/api', requirementRoutes);
+
 app.use('/api', loginRoute);
 // app.use('/api', lenderRoutes);
 app.use('/api/lenders', lenderRoutes); 

@@ -3,6 +3,8 @@ import './About.css';
 
 function AboutUs() {
   return (
+    <>
+    <div id="heade"></div>
     <div className="about-us">
       <div className="about-container">
         <h1>Welcome to suppcohort.com</h1>
@@ -19,6 +21,7 @@ function AboutUs() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

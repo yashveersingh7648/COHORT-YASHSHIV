@@ -130,6 +130,34 @@ const whyItems = [
     </section>
 
 
+     {/* Modified ThumbnailSlider with requirements data */}
+      <div className="slider-container">
+        {/* <h2 className="section-heading">Latest Requirements</h2> */}
+        {loading ? (
+          <div className="loading-spinner">Loading requirements...</div>
+        ) : (
+          
+           <ThumbnailSlider 
+      items={requirementsData.map(req => ({
+        companyName: req.companyName,
+        companyType: req.companyType,
+        product: req.product,
+        categoryType: req.categoryType,
+        companyCity: req.companyCity,
+        companyPincode: req.companyPincode,
+        companyState: req.companyState,
+        teamSize: req.teamSize
+        
+      }))}
+      
+      direction="bottomToTop"
+      speed={5000}
+    />
+    
+        )}
+      </div>
+
+
 <div className="heading-container1">
   <h4 className="main-heading">At Suppcohort, we cater to three primary user groups:</h4>
 </div>
@@ -141,31 +169,31 @@ const whyItems = [
     <div className="service-cards">
       <div className="card-image" style={{ backgroundImage: "url('/uploads/LendersTeams.jpg')" }}>
         <div className="card-overlaye">
-          <span class="card-category">Lenders</span>
-          <h3 class="card-title">Lenders’ Teams</h3>
-          <p class="card-description">Recovery, collection, and legal professionals from Banks, NBFCs, ARCs, Microfinance, and Fintech.
+          <span className="card-category">Lenders</span>
+          <h3 className="card-title">Lenders’ Teams</h3>
+          <p className="card-description">Recovery, collection, and legal professionals from Banks, NBFCs, ARCs, Microfinance, and Fintech.
 </p>
         </div>
       </div>
     </div>
 
-    <div class="service-cards">
-      <div class="card-image" style={{ backgroundImage: "url('/uploads/SupportPartners.jpg')" }}>
-        <div class="card-overlaye">
-          <span class="card-category">Support</span>
-          <h3 class="card-title">Support Partners</h3>
-          <p class="card-description"> Agencies or entities offering debt collection, recovery, or legal services to lenders.
+    <div className="service-cards">
+      <div className="card-image" style={{ backgroundImage: "url('/uploads/SupportPartners.jpg')" }}>
+        <div className="card-overlaye">
+          <span className="card-category">Support</span>
+          <h3 className="card-title">Support Partners</h3>
+          <p className="card-description"> Agencies or entities offering debt collection, recovery, or legal services to lenders.
 </p>
         </div>
       </div>
     </div>
 
-    <div class="service-cards">
-      <div class="card-image" style={{ backgroundImage: "url('/uploads/AdmirersGuests.jpg')" }}>
-        <div class="card-overlaye">
-          <span class="card-category">Admirers</span>
-          <h3 class="card-title">Admirers/Guests</h3>
-          <p class="card-description">Experts, individuals, or companies exploring opportunities, learning, or seeking careers in the industry.
+    <div className="service-cards">
+      <div className="card-image" style={{ backgroundImage: "url('/uploads/AdmirersGuests.jpg')" }}>
+        <div className="card-overlaye">
+          <span className="card-category">Admirers</span>
+          <h3 className="card-title">Admirers/Guests</h3>
+          <p className="card-description">Experts, individuals, or companies exploring opportunities, learning, or seeking careers in the industry.
 </p>
         </div>
       </div>
@@ -507,32 +535,7 @@ Encouraging word to upload profile and become part of the community\ race.  "
       </section>
     </div>
 {/* <ThumbnailSlider /> */}
- {/* Modified ThumbnailSlider with requirements data */}
-      <div className="slider-container">
-        {/* <h2 className="section-heading">Latest Requirements</h2> */}
-        {loading ? (
-          <div className="loading-spinner">Loading requirements...</div>
-        ) : (
-          
-           <ThumbnailSlider 
-      items={requirementsData.map(req => ({
-        companyName: req.companyName,
-        companyType: req.companyType,
-        product: req.product,
-        categoryType: req.categoryType,
-        companyCity: req.companyCity,
-        companyPincode: req.companyPincode,
-        companyState: req.companyState,
-        teamSize: req.teamSize
-        
-      }))}
-      
-      direction="bottomToTop"
-      speed={5000}
-    />
-    
-        )}
-      </div>
+
 
       {/* <ThumbnailSlider /> */}
     </div>

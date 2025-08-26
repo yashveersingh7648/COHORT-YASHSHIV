@@ -217,25 +217,28 @@ router.post('/requirements', async (req, res) => {
 
 
 
+// In your requirements.js routes file
 router.get('/requirements', authenticateBusiness, async (req, res) => {
   try {
-    // Get email from authenticated business user
-    const userEmail = req.user.email;
+    console.log('Authenticated user in route:', req.user);
     
-    if (!userEmail) {
+    if (!req.user || !req.user.email) {
+      console.log('User email missing in request');
       return res.status(400).json({
         success: false,
-        error: 'User email not found in token'
+        error: 'User information missing'
       });
     }
 
     const requirements = await Requirement.find({
       $or: [
-        { userEmail: userEmail },
-        { companyEmail: userEmail }
+        { userEmail: req.user.email },
+        { companyEmail: req.user.email }
       ]
     }).sort({ createdAt: -1 });
 
+    console.log('Found requirements:', requirements.length);
+    
     res.json({
       success: true,
       data: requirements
@@ -249,7 +252,6 @@ router.get('/requirements', authenticateBusiness, async (req, res) => {
     });
   }
 });
-
 
 // routes/requirements.js
 router.get('/all-requirements', async (req, res) => {

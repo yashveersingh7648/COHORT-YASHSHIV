@@ -85,7 +85,7 @@
 /* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #222;
+  background-color: #193247;
   color: white;
   display: flex;
   flex-direction: column;
@@ -174,7 +174,7 @@
   margin-top: 0.5rem;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #070707;
   border-radius: 4px;
 }
 
@@ -222,6 +222,8 @@
 }
 
 .submitButton:disabled {
-  background-color: #ccc;
+  margin-top: 1rem;
+  background-color: #85bde3;
   cursor: not-allowed;
+  float: right;
 }
