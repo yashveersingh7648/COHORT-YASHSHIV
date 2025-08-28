@@ -377,7 +377,7 @@ const EXPERTISE_OPTIONS = [
   'Transportation'
 ];
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com";
 
 const GuestSignUpPage = () => {
   const navigate = useNavigate();
