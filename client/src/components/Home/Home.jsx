@@ -83,7 +83,7 @@ const whyItems = [
       <div className="container">
         <div className="hero-content-wrapper">
           <div className="hero-content">
-            <span className="badge">Industry Pioneers</span>
+{/*             <span className="badge">Industry Pioneers</span> */}
             <h1>Transforming Debt Management in <span className="highlight">India</span></h1>
             
             <div className="suppcohort-description">
