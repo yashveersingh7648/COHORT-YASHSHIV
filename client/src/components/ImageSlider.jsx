@@ -264,12 +264,22 @@ const ImageSlider = () => {
     return localStorage.getItem("isSubscribed") === "true";
   });
 
-  const getAnimationDuration = (items) => {
-    const baseDuration = animationDuration;
-    const itemCount = items.length || 1;
-    return `${baseDuration * (itemCount / 10)}s`;
-  };
+  // const getAnimationDuration = (items) => {
+  //   const baseDuration = animationDuration;
+  //   const itemCount = items.length || 1;
+  //   return `${baseDuration * (itemCount / 10)}s`;
+  // };
 
+const getAnimationDuration = (items) => {
+  const baseDuration = animationDuration; // 60s
+  const itemCount = items.length;
+
+  // kam se kam 1 card ke liye bhi scroll ka time bada ho
+  const safeCount = Math.max(itemCount, 10);  
+
+  return `${baseDuration * (safeCount / 10)}s`;
+};
+      
   const maskSensitiveData = (data, fieldName) => {
     if (!data) return '*****';
     if (fieldName === 'email') {
