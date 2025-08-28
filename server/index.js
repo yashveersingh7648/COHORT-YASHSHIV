@@ -75,16 +75,16 @@ app.use('/uploads', express.static(uploadsDir, {
 app.use('/uploads', express.static(uploadsPath));
 
 // Enable CORS if needed
-app.use(cors({
-  // origin: 'http://localhost:5173',
- origin: true,
-  credentials: true
-}));
 // app.use(cors({
-//   origin: ['http://localhost:5173'],
-//   methods: ['GET', 'POST'],
-//   allowedHeaders: ['Content-Type']
+//   // origin: 'http://localhost:5173',
+//  origin: true,
+//   credentials: true
 // }));
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://68b00c3a08886a8ce3faee28--cohor.netlify.app'],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
+}));
 // Middleware
 // app.use(cors()); 
 
