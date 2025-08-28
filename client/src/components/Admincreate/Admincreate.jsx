@@ -20,7 +20,7 @@ import { useAuth } from '../../context/AuthContext';
 
 // const BASE_URL = "http://localhost:8000";
 // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com";
 
 const Admincreate = () => {
   const location = useLocation();
