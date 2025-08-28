@@ -498,7 +498,7 @@ const ADMIN_EMAILS = ['info@ciphershieldtech.com', 'admin@ciphershieldtech.com']
 const ADMIN_REDIRECT = '/StatusDashboard';
 
 // API configuration
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com";
 
 const loadOptions = async (inputValue, callback) => {
   try {
