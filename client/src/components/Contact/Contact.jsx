@@ -11,7 +11,7 @@ import {
 import styles from "./Contact.module.css";
 
 // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
