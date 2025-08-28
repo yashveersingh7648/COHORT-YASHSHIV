@@ -874,7 +874,7 @@ import ManageRequirements from '../ManageRequirements/ManageRequirements';
 import ManageManpower from '../AddManpowerForm/ManageManpower';
 import { useAuth } from '../../context/AuthContext';
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com";
 
 const DashboardPage = ({role}) => {
   const [search, setSearch] = useState('');
