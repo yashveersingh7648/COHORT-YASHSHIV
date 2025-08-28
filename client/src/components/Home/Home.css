@@ -1835,11 +1835,11 @@ background-size: 100% 100%;
 }
 
 .hero-text {
-  font-size: 1.2rem;
-  /* color: #272727; */
-  color: white;
-  margin-bottom: 1px;
-  line-height: 1.6;
+     font-size: 1rem;
+    color: #fff;
+    margin-bottom: 1px;
+    line-height: 1.6;
+    text-align: justify;
 }
 
 .suppcohort-description {
