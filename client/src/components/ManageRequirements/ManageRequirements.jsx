@@ -57,7 +57,7 @@ const ManageRequirements = () => {
       if (error.response?.status === 401) {
         // Clear invalid session and reload
         localStorage.removeItem('businessUser');
-        window.location.href = '/business-login'; // Redirect to login page
+        window.location.href = '/LoginPopup'; // Redirect to login page
       }
     } finally {
       setIsLoading(false);
@@ -127,7 +127,7 @@ const ManageRequirements = () => {
       
       if (error.response?.status === 401) {
         localStorage.removeItem('businessUser');
-        window.location.href = '/business-login';
+        window.location.href = '/LoginPopup';
       }
     } finally {
       setDeletingId(null);

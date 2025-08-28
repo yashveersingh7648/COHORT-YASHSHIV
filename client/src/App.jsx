@@ -50,6 +50,10 @@ const WhySuppcohort = lazy(() => import("./components/WhySuppcohort/WhySuppcohor
 const LearnDashboard = lazy(() => import("./components/LearnDashboard.jsx"));
 const CommonDebt = lazy(() => import("./components/CommonDebt.jsx"));
 
+const DetailPage = lazy(() => import("./components/DetailPage.jsx"));
+const LoginPopup = lazy(() => import("./components/LoginPopup.jsx"));
+
+
 function App() {
   
   // const BASE_URL = "http://localhost:8000";
@@ -102,7 +106,7 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate('/LoginPopup');
     }
   }, [user, navigate]);
 
@@ -156,6 +160,9 @@ const ProtectedRoute = ({ children }) => {
 
                 <Route path="/LearnDashboard" element={<LearnDashboard />} />
                 <Route path="/CommonDebt" element={<CommonDebt />} />
+<Route path="/detail/:type/:id" element={<DetailPage />} />
+
+                <Route path="/LoginPopup" element={<LoginPopup />} />
 
 
                   <Route path="/ManageRequirements" element={  <ProtectedRoute>

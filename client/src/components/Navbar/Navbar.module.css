@@ -1,7 +1,8 @@
 /* Header Styles */
 
 .header {
-  background-color: #274f70;
+  /* background-color: #274f70; */
+  background: linear-gradient(to right,  #6ca4ff, #274f70);
   padding: 12px 0;
   position: sticky;
   top: 0;
@@ -11,7 +12,7 @@
 .logoImage {
   width: 100%;
   min-height: 3rem;
-  max-width: 9rem; 
+  max-width: 16rem; 
   height: auto;
   object-fit: cover;
   display: block;
@@ -164,13 +165,21 @@
   font-weight: 500;
   padding: 12px 0;
   display: block;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   font-size: 1.2rem;
 }
 
 .navLink:hover {
   color: #ff6b00;
+  border-bottom: 2px solid #ff6b00;
+
 }
 
+.activeLink {
+  color: #ff6b00;
+  font-weight: bold;
+  border-bottom: 2px solid #ff6b00;
+}
 /* Mobile Navigation */
 .mobileNavContainer {
   width: 100%;

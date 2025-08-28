@@ -1,5 +1,7 @@
 
 
+// Working
+
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 // import './ImageSlider.css';
@@ -9,26 +11,22 @@
 //   getRemovedRequirementIds,
 //   getHiddenManpowerIds,
 //   getRemovedManpowerIds,
-//   getHiddenBusinessIds,
-//   getRemovedBusinessIds
+//   getHiddenAgencyIds,
+//   getRemovedAgencyIds
 // } from './../utils/dashboardState';
 
-// // const BASE_URL = "http://localhost:8000";
-// // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
 // const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 // const ImageSlider = () => {
 //   const [requirements, setRequirements] = useState([]);
 //   const [manpowerData, setManpowerData] = useState([]);
-//   const [businessData, setBusinessData] = useState([]);
+//   const [agencyData, setAgencyData] = useState([]); // Changed from businessData to agencyData
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState(null);
 //   const { user } = useAuth();
 
-//   // Animation duration in seconds (same for all sliders)
 //   const animationDuration = 60;
 
-//   // Calculate animation duration based on item count to maintain consistent speed
 //   const getAnimationDuration = (items) => {
 //     const baseDuration = animationDuration;
 //     const itemCount = items.length || 1;
@@ -45,28 +43,28 @@
 //       const removedReqs = getRemovedRequirementIds();
 //       const hiddenManpower = getHiddenManpowerIds();
 //       const removedManpower = getRemovedManpowerIds();
-//       const hiddenBusiness = getHiddenBusinessIds();
-//       const removedBusiness = getRemovedBusinessIds();
+//       const hiddenAgency = getHiddenAgencyIds(); // Changed from hiddenBusiness
+//       const removedAgency = getRemovedAgencyIds(); // Changed from removedBusiness
 
-//       const [requirementsRes, manpowerRes, businessesRes] = await Promise.all([
+//       const [requirementsRes, manpowerRes, agenciesRes] = await Promise.all([
 //         axios.get(`${API_URL}/api/all-requirements`),
 //         axios.get(`${API_URL}/api/manpower/all`), 
-//         axios.get(`${API_URL}/api/busnies/public`)  
+//         axios.get(`${API_URL}/api/dashboard`)  // Changed from /api/busnies/public to /api/dashboard
 //       ]);
 
 //       // Filter out hidden and removed items for each data type
-//       const filteredRequirements = (requirementsRes.data?.data || [])
+//       const filteredRequirements = (requirementsRes.data?.data || requirementsRes.data || [])
 //         .filter(item => !removedReqs[item._id] && !hiddenReqs[item._id]);
 
-//       const filteredManpower = (manpowerRes.data?.data || [])
+//       const filteredManpower = (manpowerRes.data?.data || manpowerRes.data || [])
 //         .filter(item => !removedManpower[item._id] && !hiddenManpower[item._id]);
 
-//       const filteredBusinesses = (businessesRes.data?.data || [])
-//         .filter(item => !removedBusiness[item._id] && !hiddenBusiness[item._id]);
+//       const filteredAgencies = (agenciesRes.data?.data || agenciesRes.data || [])
+//         .filter(item => !removedAgency[item._id] && !hiddenAgency[item._id]);
 
 //       setRequirements(filteredRequirements);
 //       setManpowerData(filteredManpower);
-//       setBusinessData(filteredBusinesses);
+//       setAgencyData(filteredAgencies); // Changed from setBusinessData
 
 //     } catch (err) {
 //       console.error('Fetch error:', err);
@@ -79,9 +77,8 @@
 //   useEffect(() => {
 //     fetchAllData();
 
-//     // Enhanced event listener setup
 //     const handleDataChange = (event) => {
-//       if (!event || event.detail?.type === 'business') {
+//       if (!event || event.detail?.type === 'agency') { // Changed from 'business' to 'agency'
 //         fetchAllData();
 //       }
 //     };
@@ -135,18 +132,7 @@
 //             >
 //               {manpowerData.length > 0 ? (
 //                 manpowerData.map((item) => (
-//                   <div 
-//                     className="slider-card" 
-//                     key={item._id}
-//                     onMouseEnter={(e) => {
-//                       const track = e.currentTarget.closest('.slider-track');
-//                       if (track) track.style.animationPlayState = 'paused';
-//                     }}
-//                     onMouseLeave={(e) => {
-//                       const track = e.currentTarget.closest('.slider-track');
-//                       if (track) track.style.animationPlayState = 'running';
-//                     }}
-//                   >
+//                   <div className="slider-card" key={item._id}>
 //                     <h3>{item.designation || 'Position'}</h3>
 //                     <div className="card-details">
 //                       <p><strong>Positions:</strong> {item.noOfPositions || '-'}</p>
@@ -177,40 +163,13 @@
 //             >
 //               {requirements.length > 0 ? (
 //                 requirements.map((item) => (
-//                   <div 
-//                     className="slider-card" 
-//                     key={item._id}
-//                     onMouseEnter={(e) => {
-//                       const track = e.currentTarget.closest('.slider-track');
-//                       if (track) track.style.animationPlayState = 'paused';
-//                     }}
-//                     onMouseLeave={(e) => {
-//                       const track = e.currentTarget.closest('.slider-track');
-//                       if (track) track.style.animationPlayState = 'running';
-//                     }}
-//                   >
+//                   <div className="slider-card" key={item._id}>
 //                     <h3>{item.companyName || 'Company'}</h3>
 //                     <div className="card-details">
 //                       <p><strong>Product:</strong> {item.product || '-'}</p>
 //                       <p><strong>Team Size:</strong> {item.teamSize || '-'}</p>
-//                       {/* <p><strong>Category:</strong> {item.categoryType || '-'}</p>
-//                       <p><strong>City:</strong> {item.companyCity || '-'}</p>
-//                       <p><strong>State:</strong> {item.companyState || '-'}</p>
-//                       <p><strong>Pincode:</strong> {item.companyPincode || '-'}</p> */}
-//                     </div>
-//                      <div className="card-details">
-//                       {/* <p><strong>Product:</strong> {item.product || '-'}</p>
-//                       <p><strong>Team Size:</strong> {item.teamSize || '-'}</p> */}
 //                       <p><strong>Category:</strong> {item.categoryType || '-'}</p>
 //                       <p><strong>City:</strong> {item.companyCity || '-'}</p>
-//                       {/* <p><strong>State:</strong> {item.companyState || '-'}</p>
-//                       <p><strong>Pincode:</strong> {item.companyPincode || '-'}</p> */}
-//                     </div>
-//                      <div className="card-details">
-//                       {/* <p><strong>Product:</strong> {item.product || '-'}</p>
-//                       <p><strong>Team Size:</strong> {item.teamSize || '-'}</p>
-//                       <p><strong>Category:</strong> {item.categoryType || '-'}</p>
-//                       <p><strong>City:</strong> {item.companyCity || '-'}</p> */}
 //                       <p><strong>State:</strong> {item.companyState || '-'}</p>
 //                       <p><strong>Pincode:</strong> {item.companyPincode || '-'}</p>
 //                     </div>
@@ -223,44 +182,34 @@
 //           </div>
 //         </div>
 
-//         {/* Right Section - Businesses Data */}
+//         {/* Right Section - Agency Data (Changed from Businesses) */}
 //         <div className="slider-column">
-//           <h2 className="column-title">Businesses ({businessData.length})</h2>
+//           <h2 className="column-title">Agencies ({agencyData.length})</h2>
 //           <div className="slider-wrapper">
 //             <div 
 //               className="slider-track"
 //               style={{ 
-//                 animation: `scrollUp ${getAnimationDuration(businessData)} linear infinite`,
+//                 animation: `scrollUp ${getAnimationDuration(agencyData)} linear infinite`,
 //                 animationPlayState: loading ? 'paused' : 'running'
 //               }}
 //               onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
 //               onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
 //             >
-//               {businessData.length > 0 ? (
-//                 businessData.map((item) => (
-//                   <div 
-//                     className="slider-card" 
-//                     key={item._id}
-//                     onMouseEnter={(e) => {
-//                       const track = e.currentTarget.closest('.slider-track');
-//                       if (track) track.style.animationPlayState = 'paused';
-//                     }}
-//                     onMouseLeave={(e) => {
-//                       const track = e.currentTarget.closest('.slider-track');
-//                       if (track) track.style.animationPlayState = 'running';
-//                     }}
-//                   >
-//                     <h3>{item.companyName || 'Business'}</h3>
+//               {agencyData.length > 0 ? (
+//                 agencyData.map((item) => (
+//                   <div className="slider-card" key={item._id}>
+//                     <h3>{item.companyName || 'Agency'}</h3>
 //                     <div className="card-details">
-//                       <p><strong>Type:</strong> {item.companyType || '-'}</p>
 //                       <p><strong>Contact:</strong> {item.contactName || '-'}</p>
-//                       <p><strong>Products:</strong> {item.productsHandling || '-'}</p>
+//                       <p><strong>Category:</strong> {item.categoryType || '-'}</p>
+//                       <p><strong>Phone:</strong> {item.companyPhone || '-'}</p>
 //                       <p><strong>Location:</strong> {item.companyCity || '-'}, {item.companyState || '-'}</p>
+//                       <p><strong>Email:</strong> {item.companyEmail || item.userEmail || '-'}</p>
 //                     </div>
 //                   </div>
 //                 ))
 //               ) : (
-//                 <div className="no-data-message">No businesses available</div>
+//                 <div className="no-data-message">No agencies available</div>
 //               )}
 //             </div>
 //           </div>
@@ -277,13 +226,10 @@
 
 
 
-
-
-
-
-
+// 27-08-25
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './ImageSlider.css';
 import { useAuth } from './../context/AuthContext';
 import {
@@ -300,39 +246,63 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const ImageSlider = () => {
   const [requirements, setRequirements] = useState([]);
   const [manpowerData, setManpowerData] = useState([]);
-  const [agencyData, setAgencyData] = useState([]); // Changed from businessData to agencyData
+  const [agencyData, setAgencyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user } = useAuth();
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const { isAuthenticated, userType } = useAuth();
+  const navigate = useNavigate();
 
   const animationDuration = 60;
+
+  // localStorage se initial value load karo
+  const [agencyViewCount, setAgencyViewCount] = useState(() => {
+    return parseInt(localStorage.getItem("agencyViewCount") || "0", 10);
+  });
+
+  const [isSubscribed, setIsSubscribed] = useState(() => {
+    return localStorage.getItem("isSubscribed") === "true";
+  });
 
   const getAnimationDuration = (items) => {
     const baseDuration = animationDuration;
     const itemCount = items.length || 1;
-    return `${baseDuration * (itemCount / 10)}s`; 
+    return `${baseDuration * (itemCount / 10)}s`;
+  };
+
+  const maskSensitiveData = (data, fieldName) => {
+    if (!data) return '*****';
+    if (fieldName === 'email') {
+      const [username, domain] = data.split('@');
+      return `${username.slice(0, 2)}****@${domain}`;
+    }
+    if (fieldName === 'phone') {
+      return data.slice(0, 3) + '****' + data.slice(-2);
+    }
+    if (fieldName === 'name') {
+      return data.slice(0, 2) + '****';
+    }
+    return '*****';
   };
 
   const fetchAllData = async () => {
     try {
       setLoading(true);
       setError(null);
-      
-      // Get current hidden and removed IDs for all data types
+
       const hiddenReqs = getHiddenRequirementIds();
       const removedReqs = getRemovedRequirementIds();
       const hiddenManpower = getHiddenManpowerIds();
       const removedManpower = getRemovedManpowerIds();
-      const hiddenAgency = getHiddenAgencyIds(); // Changed from hiddenBusiness
-      const removedAgency = getRemovedAgencyIds(); // Changed from removedBusiness
+      const hiddenAgency = getHiddenAgencyIds();
+      const removedAgency = getRemovedAgencyIds();
 
       const [requirementsRes, manpowerRes, agenciesRes] = await Promise.all([
         axios.get(`${API_URL}/api/all-requirements`),
-        axios.get(`${API_URL}/api/manpower/all`), 
-        axios.get(`${API_URL}/api/dashboard`)  // Changed from /api/busnies/public to /api/dashboard
+        axios.get(`${API_URL}/api/manpower/all`),
+        axios.get(`${API_URL}/api/dashboard`)
       ]);
 
-      // Filter out hidden and removed items for each data type
       const filteredRequirements = (requirementsRes.data?.data || requirementsRes.data || [])
         .filter(item => !removedReqs[item._id] && !hiddenReqs[item._id]);
 
@@ -344,7 +314,7 @@ const ImageSlider = () => {
 
       setRequirements(filteredRequirements);
       setManpowerData(filteredManpower);
-      setAgencyData(filteredAgencies); // Changed from setBusinessData
+      setAgencyData(filteredAgencies);
 
     } catch (err) {
       console.error('Fetch error:', err);
@@ -354,23 +324,73 @@ const ImageSlider = () => {
     }
   };
 
+
+  const handleCardClick = (item, type) => {
+    // Guest → Login page bhej do
+     window.scrollTo({
+      top: 0,
+      behavior: 'smooth' 
+    });
+    if (!isAuthenticated) {
+      navigate('/Login_SignUp');
+      return;
+    }
+
+    // Agency restriction
+    if (userType === 'agency') {
+      if (!isSubscribed) {
+        if (agencyViewCount >= 2) {
+          setShowPaymentModal(true);
+          return;
+        }
+        // free quota use karna
+        const newCount = agencyViewCount + 1;
+        setAgencyViewCount(newCount);
+        localStorage.setItem("agencyViewCount", newCount); // save localStorage
+      }
+    }
+
+    // Lender ya subscribed agency → allow navigation
+    navigate(`/detail/${type}/${item._id}`, { state: { item, type } });
+  };
+
+  const handlePaymentSuccess = () => {
+    setShowPaymentModal(false);
+    setIsSubscribed(true);
+    localStorage.setItem("isSubscribed", "true"); // subscription persist
+    alert('✅ Payment successful! Now you can view unlimited cards.');
+  };
+
   useEffect(() => {
     fetchAllData();
 
-    const handleDataChange = (event) => {
-      if (!event || event.detail?.type === 'agency') { // Changed from 'business' to 'agency'
-        fetchAllData();
-      }
-    };
-
+    const handleDataChange = () => fetchAllData();
     window.addEventListener('storage', handleDataChange);
     window.addEventListener('dashboardStateChanged', handleDataChange);
-    
+
     return () => {
       window.removeEventListener('storage', handleDataChange);
       window.removeEventListener('dashboardStateChanged', handleDataChange);
     };
   }, []);
+
+  // reset agar agency login kare to
+  useEffect(() => {
+    if (userType !== 'agency') {
+      localStorage.removeItem("agencyViewCount");
+      localStorage.removeItem("isSubscribed");
+    }
+  }, [userType]);
+
+
+
+   const handleFooterLinkClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' 
+    });
+  }; 
+
 
   if (loading) {
     return (
@@ -396,8 +416,31 @@ const ImageSlider = () => {
 
   return (
     <div className="slider-container">
-      <div className="three-column-slider">
-        {/* Left Section - Manpower Data */}
+      {/* Payment Modal */}
+      {showPaymentModal && (
+        <div className="payment-modal-overlay">
+          <div className="payment-modal">
+            <h3>Premium Subscription Required</h3>
+            <p>You have already viewed 2 cards. Please subscribe for unlimited access.</p>
+            <div className="payment-options">
+              <button className="payment-option">Monthly - ₹999</button>
+              <button className="payment-option">Yearly - ₹9999</button>
+            </div>
+            <div className="modal-actions">
+              <button onClick={() => setShowPaymentModal(false)} className="cancel-btn">
+                Cancel
+              </button>
+              <button onClick={handlePaymentSuccess} className="subscribe-btn">
+                Subscribe Now
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+       <div className="three-column-slider">
+        
+        {/* Left Section - Manpower Data (Agency can view) */}
         <div className="slider-column">
           <h2 className="column-title">Job Positions ({manpowerData.length})</h2>
           <div className="slider-wrapper">
@@ -412,12 +455,20 @@ const ImageSlider = () => {
             >
               {manpowerData.length > 0 ? (
                 manpowerData.map((item) => (
-                  <div className="slider-card" key={item._id}>
+                  <div 
+                    className="slider-card" 
+                    key={item._id}
+                    onClick={() => handleCardClick(item, 'manpower')}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <h3>{item.designation || 'Position'}</h3>
                     <div className="card-details">
                       <p><strong>Positions:</strong> {item.noOfPositions || '-'}</p>
                       <p><strong>Experience:</strong> {item.experience || '-'}</p>
                       <p><strong>Location:</strong> {item.location || '-'}</p>
+                      {!isAuthenticated && (
+                        <p className="login-prompt">Login to view details</p>
+                      )}
                     </div>
                   </div>
                 ))
@@ -428,7 +479,7 @@ const ImageSlider = () => {
           </div>
         </div>
 
-        {/* Center Section - Requirements Data */}
+        {/* Center Section - Requirements Data (Agency can view) */}
         <div className="slider-column">
           <h2 className="column-title">Company Requirements ({requirements.length})</h2>
           <div className="slider-wrapper">
@@ -443,7 +494,12 @@ const ImageSlider = () => {
             >
               {requirements.length > 0 ? (
                 requirements.map((item) => (
-                  <div className="slider-card" key={item._id}>
+                  <div 
+                    className="slider-card" 
+                    key={item._id}
+                    onClick={() => handleCardClick(item, 'requirement')}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <h3>{item.companyName || 'Company'}</h3>
                     <div className="card-details">
                       <p><strong>Product:</strong> {item.product || '-'}</p>
@@ -452,6 +508,10 @@ const ImageSlider = () => {
                       <p><strong>City:</strong> {item.companyCity || '-'}</p>
                       <p><strong>State:</strong> {item.companyState || '-'}</p>
                       <p><strong>Pincode:</strong> {item.companyPincode || '-'}</p>
+                      
+                      {!isAuthenticated && (
+                        <p className="login-prompt">Login to view contact details</p>
+                      )}
                     </div>
                   </div>
                 ))
@@ -462,7 +522,7 @@ const ImageSlider = () => {
           </div>
         </div>
 
-        {/* Right Section - Agency Data (Changed from Businesses) */}
+        {/* Right Section - Agency Data (Payment required for agency users) */}
         <div className="slider-column">
           <h2 className="column-title">Agencies ({agencyData.length})</h2>
           <div className="slider-wrapper">
@@ -477,14 +537,31 @@ const ImageSlider = () => {
             >
               {agencyData.length > 0 ? (
                 agencyData.map((item) => (
-                  <div className="slider-card" key={item._id}>
+                  <div 
+                    className="slider-card" 
+                    key={item._id}
+                    onClick={() => handleCardClick(item, 'agency')}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <h3>{item.companyName || 'Agency'}</h3>
                     <div className="card-details">
-                      <p><strong>Contact:</strong> {item.contactName || '-'}</p>
+                      <p><strong>Contact:</strong> 
+                        {userType === 'lender' ? (item.contactName || '-') : maskSensitiveData(item.contactName, 'name')}
+                      </p>
                       <p><strong>Category:</strong> {item.categoryType || '-'}</p>
-                      <p><strong>Phone:</strong> {item.companyPhone || '-'}</p>
+                      <p><strong>Phone:</strong> 
+                        {userType === 'lender' ? (item.companyPhone || '-') : maskSensitiveData(item.companyPhone, 'phone')}
+                      </p>
                       <p><strong>Location:</strong> {item.companyCity || '-'}, {item.companyState || '-'}</p>
-                      <p><strong>Email:</strong> {item.companyEmail || item.userEmail || '-'}</p>
+                      <p><strong>Email:</strong> 
+                        {userType === 'lender' ? (item.companyEmail || item.userEmail || '-') : maskSensitiveData(item.companyEmail || item.userEmail, 'email')}
+                      </p>
+                      
+                     
+                      
+                      {!isAuthenticated && (
+                        <p className="login-prompt">Login to view details</p>
+                      )}
                     </div>
                   </div>
                 ))

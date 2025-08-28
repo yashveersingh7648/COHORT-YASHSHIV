@@ -193,7 +193,7 @@ const handleSubmit = async (e) => {
 
 // Temporary add this in your component
 useEffect(() => {
-  console.log("Client ID:", import.meta.env.VITE_GOOGLE_CLIENT_ID);
+  // console.log("Client ID:", import.meta.env.VITE_GOOGLE_CLIENT_ID);
   console.log("Redirect URI:", import.meta.env.VITE_GOOGLE_REDIRECT_URI);
 }, []);
 

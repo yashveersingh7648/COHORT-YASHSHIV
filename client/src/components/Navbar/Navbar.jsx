@@ -1096,7 +1096,7 @@ const Navbar = ({ onSearch }) => {
         <div className={styles.headerTopRow}>
           <div className={styles.logoContainer}>
             <Link to="/" className={styles.logo}>
-              <img src="/uploads/LogoSuppcohort.jpg" alt="Profile" className={styles.logoImage} />
+              <img src="/uploads/LogoSuppcohort1.png" alt="Profile" className={styles.logoImage} />
             </Link>
           </div>
           <div className={styles.mobileControls}>
@@ -1149,20 +1149,18 @@ const Navbar = ({ onSearch }) => {
           <nav className={styles.nav}>
             <ul className={styles.navList}>
               <li className={styles.navItem}>
-                <Link to="/Home" className={styles.navLink} onClick={handleFooterLinkClick}>Home</Link>
+                <Link to="/Home" className={`${styles.navLink} ${location.pathname === "/Home" ? styles.activeLink : ""}`} onClick={handleFooterLinkClick}>Home</Link>
               </li>
               <li className={styles.navItem}>
-                <Link to="/LearnDashboard" className={styles.navLink} onClick={handleFooterLinkClick}>Learn</Link>
+                <Link to="/LearnDashboard" className={`${styles.navLink} ${location.pathname === "/LearnDashboard" ? styles.activeLink : ""}`} onClick={handleFooterLinkClick}>Learn</Link>
               </li>
 
               {!isBusinessLoggedIn && (
                 isAgencyLoggedIn ? (
                   <>
+                    
                     <li className={styles.navItem}>
-                      <Link to="/DashboardPage" className={styles.navLink} onClick={handleFooterLinkClick}>Agency</Link>
-                    </li>
-                    <li className={styles.navItem}>
-                      <Link to="/DashboardTabs" className={styles.navLink} onClick={handleFooterLinkClick}>CreateAgency</Link>
+                      <Link to="/DashboardTabs" className={`${styles.navLink} ${location.pathname === "/DashboardTabs" ? styles.activeLink : ""}`} onClick={handleFooterLinkClick}>CreateAgency</Link>
                     </li>
                     
                     {/* ✅ Agency User Info with Dropdown */}
@@ -1264,20 +1262,20 @@ const Navbar = ({ onSearch }) => {
               <nav className={`${styles.nav} ${styles.mobileNav}`}>
                 <ul className={`${styles.navList} ${styles.mobileNavList}`}>
                   <li className={styles.navItem}>
-                    <Link to="/Home" className={styles.navLink} onClick={handleFooterLinkClick}>Home</Link>
+                    <Link to="/Home"  className={`${styles.navLink} ${location.pathname === "/Home" ? styles.activeLink : ""}`} onClick={handleFooterLinkClick}>Home</Link>
                   </li>
                   <li className={styles.navItem}>
-                    <Link to="/LearnDashboard" className={styles.navLink} onClick={handleFooterLinkClick}>Learn</Link>
+                    <Link to="/LearnDashboard" className={`${styles.navLink} ${location.pathname === "/LearnDashboard" ? styles.activeLink : ""}`} onClick={handleFooterLinkClick}>Learn</Link>
                   </li>
 
                   {!isBusinessLoggedIn && (
                     isAgencyLoggedIn ? (
                       <>
                         <li className={styles.navItem}>
-                          <Link to="/DashboardPage" className={styles.navLink} onClick={handleFooterLinkClick}>Agency</Link>
+                          <Link to="/DashboardPage" className={`${styles.navLink} ${location.pathname === "/DashboardPage" ? styles.activeLink : ""}`} onClick={handleFooterLinkClick}>Agency</Link>
                         </li>
                         <li className={styles.navItem}>
-                          <Link to="/DashboardTabs" className={styles.navLink} onClick={handleFooterLinkClick}>CreateAgency</Link>
+                          <Link to="/DashboardTabs" className={`${styles.navLink} ${location.pathname === "/DashboardTabs" ? styles.activeLink : ""}`} onClick={handleFooterLinkClick}>CreateAgency</Link>
                         </li>
                         
                         {/* ✅ Mobile - Agency User Info */}

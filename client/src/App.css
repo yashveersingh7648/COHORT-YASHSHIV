@@ -2420,3 +2420,40 @@ tr:nth-child(even) {
             font-size: 1.8rem;
           }
         }
+
+
+
+
+
+        /* ......................Spinners.................... */
+        /* Spinner Page Styling */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;       /* full screen */
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  text-align: center;
+  padding: 20px;
+}
+
+.spinner-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .spinner-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .spinner-title {
+    font-size: 1rem;
+  }
+}

@@ -152,7 +152,7 @@ const DashboardTabs = ({onSave, onCancel}) => {
       setFormData(null);
       
       // Redirect to success page with company data
-      navigate('/DashboardPage', {
+      navigate('/', {
         state: {
           company: response.data.company,
           message: "Your company has been successfully registered!"

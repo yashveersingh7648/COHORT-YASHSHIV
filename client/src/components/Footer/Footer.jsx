@@ -15,8 +15,12 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.grid}>
           {/* About Us */}
+
           <div className={styles.section}>
             <h3 className={styles.heading}>About Us</h3>
+            <Link to="/" className={styles.logo}>
+                          <img src="/uploads/LogoSuppcohort1.png" alt="Profile" className={styles.logoImage} />
+                        </Link>
             <p className={styles.text}>
               We are a leading e-commerce platform offering the best products at affordable prices.
             </p>
