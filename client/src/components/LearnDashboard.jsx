@@ -701,6 +701,7 @@ const DPDStages = () => (
             </tbody>
           </table>
         </div>
+         <p><b>Regulatory Note: </b>As per RBI guidelines, accounts with 90+ DPD are classified as Non-Performing Assets (NPAs).</p>
       </div>
     </div>
     
