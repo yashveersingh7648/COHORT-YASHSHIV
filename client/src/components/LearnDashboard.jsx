@@ -571,7 +571,7 @@ const Dialers = () => (
     <h2><FaPhone /> Dialer Types & Use Cases</h2>
     
     <div className="info-card">
-      <p>Dialers are essential tools in outbound communication—especially in debt recovery, sales, and customer engagement. They automate the calling process, improve agent productivity, and reduce idle time.</p>
+      <p>Dialers are essential tools in outbound communication—especially in debt recovery, sales, and customer engagement. They automate the calling process, improve agent productivity, and reduce idle time. Here's a breakdown of the main types and how each is best used:</p>
     </div>
     
     <div className="subsection">
