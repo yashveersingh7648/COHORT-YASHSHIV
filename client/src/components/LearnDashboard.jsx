@@ -496,7 +496,7 @@ const CommunicationPhrases = () => (
 const RecoveryTerms = () => (
   <div className="section">
     <h2><FaBook /> Collection & Recovery Terminology</h2>
-    
+    <p>The world of collection and recovery has its own vocabulary—used by banks, NBFCs, recovery agents, and legal teams to track, manage, and resolve overdue accounts. Here's a comprehensive list of commonly used terms, grouped by category for clarity</p>
     <div className="subsection">
       <h3><FaFileInvoiceDollar /> Financial & Account Terms</h3>
       <div className="info-card">
