@@ -349,7 +349,7 @@ const Overview = () => (
 const CommunicationPhrases = () => (
   <div className="section">
     <h2><FaPhone /> Collection & Recovery Communication Phrases</h2>
-    
+    <p>Here's a set of professional, respectful, and effective collection and recovery communication phrases tailored for Debt Recovery Agents (DRAs). These can be used in calls, emails, or in-person interactions to maintain compliance, build rapport, and encourage repayment </p>
     <div className="subsection">
       <h3><FaPhone /> Phone Call Phrases</h3>
       
