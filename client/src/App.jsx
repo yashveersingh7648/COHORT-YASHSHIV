@@ -57,7 +57,9 @@ const LoginPopup = lazy(() => import("./components/LoginPopup.jsx"));
 function App() {
   
   // const BASE_URL = "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com
+
+/api";
 
 const [agencies, setAgencies] = useState([]);
 const [filteredAgencies, setFilteredAgencies] = useState([]);
