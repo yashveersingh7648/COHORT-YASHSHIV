@@ -6,6 +6,7 @@ import ThumbnailSlider from '../ImageSlider';
 import { useAuth } from '../../context/AuthContext';
 import PlatformHighlights from "../PlatformHighlights"
 import axios from 'axios';
+import LoginPopup from "../LoginPopup";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink, faBalanceScale, faBullhorn, faIdCard, faGraduationCap, faRocket, faStar } from '@fortawesome/free-solid-svg-icons';
 import { 
@@ -25,13 +26,14 @@ import {
 } from "react-icons/fa";
 
 const Home = () => {
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [requirementsData, setRequirementsData] = useState([]);
-  
+   const [loginPrefill, setLoginPrefill] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   // const BASE_URL = "http://localhost:8000";
 // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-backend.onrender.com";
 
 
 
@@ -40,6 +42,23 @@ const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender
   const handleAnimationComplete = () => {
     console.log("Animation complete!");
   };
+
+
+   useEffect(() => {
+    // Check if redirected from guest signup with specific state
+    if (location.state?.showLoginPopup) {
+      setShowLoginPopup(true);
+      setLoginPrefill({
+        email: location.state.prefilledEmail,
+        name: location.state.prefilledName,
+        activeTab: location.state.activeTab || 'guest' // Default to guest tab
+      });
+      
+      // Clear the state to prevent popup on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
+
 
 const fetchRequirements = async () => {
   try {
@@ -79,18 +98,85 @@ const whyItems = [
   return (
     <div>
     <div id="heade"></div>
+   <section className="erp-hero-section">
+  <div className="erp-hero-container">
+    <div className="erp-hero-content">
+      <h1 className="erp-main-heading">
+       Empowering India’s Debt Management Ecosystem
+      </h1>
+      <p className="erp-subheading">
+       Suppcohort is a pioneering platform dedicated to the improvement of processes and services in the debt management industry. Our mission is to seamlessly connect all key stakeholders — lenders, support partners, professionals, and aspirants — while creating and expanding the industry's workforce through awareness, education, and empowerment.
+      </p>
+      
+      <div className="erp-cta-buttons">
+        <a onClick={() => setIsLoginOpen(true)} className="erp-primary-btn">
+          Get Started
+        </a>
+      </div>
+      {/* <button 
+          className="erp-primary-btn" 
+          onClick={() => setIsLoginOpen(true)}
+        >
+          Get Started
+        </button> */}
+    </div>
+    
+    <div className="erp-hero-image">
+      <img src="/uploads/supp.jpeg" alt="ERP software illustration" className="hero-img"/>
+    </div>
+  </div>
+</section>
    <section className="suppcohort-hero">
-      <div className="container">
+      {/* <div className="container"> */}
         <div className="hero-content-wrapper">
           <div className="hero-content">
-{/*             <span className="badge">Industry Pioneers</span> */}
-            <h1>Transforming Debt Management in <span className="highlight">India</span></h1>
-            
+            {/* <span className="badge">Industry Pioneers</span> */}
+            {/* <h1>Transforming Debt Management in <span className="highlight">India</span></h1> */}
+            {/* <h1>Empowering <span className="highlight">India’s </span>Debt Management Ecosystem
+</h1> */}
             <div className="suppcohort-description">
-              <p className="hero-text">
+              {/* <p className="hero-text">
                 Suppcohort is a pioneering platform dedicated to the improvement of processes and services in the debt management industry. Our mission is to seamlessly connect all key stakeholders — lenders, support partners, professionals, and aspirants — while creating and expanding the industry's workforce through awareness, education, and empowerment.
-              </p>
+              </p> */}
               
+
+
+<div className="subsections">
+      {/* <h3><FaPhone /> Types of Dialers & Their Use Cases</h3>
+       */}
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Profile</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Lender Team</strong></td>
+              <td>Collection, Recovery and Legal professionals from Banks, NBFCs, ARCs, Microfinance, and Fintech.</td>
+              <td>Publish business opportunity for support partners and job opportunity for job seekers.</td>
+            </tr>
+            <tr>
+              <td><strong>Support Pasrtners</strong></td>
+              <td>Agencies or Entities Offering Debt Collection, Recovery, or Legal Services to Lenders.</td>
+              <td>Upload your profile for Lenders Team and publish job opportunity for job seekers.</td>
+            </tr>
+            <tr>
+              <td><strong>Guest\Admirer</strong></td>
+              <td>Visit and explore the portal to connect with the world of debt management and opportunities.</td>
+              <td>Visit and explore the portal to connect with the world of debt management.</td>
+            </tr>
+            
+           
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
               <h2>The Debt Management Ecosystem in India</h2>
               <div className="stats-grid">
                 <div className="stat-item">
@@ -116,17 +202,17 @@ const whyItems = [
               </p>
             </div>
             
-            <div className="hero-buttons">
+            {/* <div className="hero-buttons">
               <a href="/Contact" className="secondary-btn">Get Started</a>
-              {/* <a href="/contact" className="outline-btn">Get Involved</a> */}
-            </div>
+              {/* <a href="/contact" className="outline-btn">Get Involved</a> 
+            </div> */}
           </div>
           
           {/* <div className="hero-image">
             <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Debt management professionals" />
           </div> */}
         </div>
-      </div>
+      {/* </div> */}
     </section>
 
 
@@ -522,7 +608,7 @@ Encouraging word to upload profile and become part of the community\ race.  "
               Register Your Agency
               </Link></button>
           
-            <button> <Link to="/BusDashboard" className="authLink" onClick={handleFooterLinkClick}>
+            <button> <Link to="/LoginPopup" className="authLink" onClick={handleFooterLinkClick}>
              Search for Agencies
               </Link></button>
           <button><Link to="/Contact" className="authLink" onClick={handleFooterLinkClick}>
@@ -538,6 +624,15 @@ Encouraging word to upload profile and become part of the community\ race.  "
 
 
       {/* <ThumbnailSlider /> */}
+
+      <LoginPopup 
+        isOpen={isLoginOpen} 
+        onClose={() => setIsLoginOpen(false)} 
+        onLoginSuccess={(user) => {
+          console.log("User Logged In:", user);
+          setIsLoginOpen(false);
+        }}
+      />
     </div>
     
     

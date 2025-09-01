@@ -1,0 +1,483 @@
+/* RBIGuidelines.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #2c3e50;
+  font-size: 2.3rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.titleIcon {
+  color: #3498db;
+  font-size: 2rem;
+}
+
+.subtitle {
+  color: #1b1b1b;
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Tab Navigation */
+.tabNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tabButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 25px;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.tabButton:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.tabButton.active {
+  background: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.tabIcon {
+  font-size: 1.2rem;
+}
+
+/* Section Styling */
+.section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+.sectionIcon {
+  color: #e74c3c;
+  font-size: 1.5rem;
+}
+
+/* Applicability */
+.applicability {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border-left: 4px solid #3498db;
+}
+
+.infoIcon {
+  color: #3498db;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.applicability p {
+  color: #34495e;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Guideline Cards */
+.guidelineCard {
+  margin-bottom: 30px;
+  border-left: 4px solid #3498db;
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+}
+
+.guidelineHeader {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.guidelineNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #3498db;
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.guidelineHeader h3 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.guidelineContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.guidelineItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.guidelineIcon {
+  color: #3498db;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.guidelineText h4 {
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+}
+
+.guidelineText p {
+  color: #34495e;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Prohibited Practices */
+.prohibitedList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.prohibitedItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.prohibitedIcon {
+  color: #e74c3c;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.prohibitedItem span {
+  color: #34495e;
+  line-height: 1.6;
+}
+
+/* Borrower Rights */
+.rightsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.rightsItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rightsIcon {
+  color: #27ae60;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.rightsItem span {
+  color: #34495e;
+  line-height: 1.6;
+}
+
+/* Accountability */
+.accountabilityList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.accountabilityItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.accountabilityIcon {
+  color: #f39c12;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.accountabilityItem span {
+  color: #34495e;
+  line-height: 1.6;
+}
+
+/* Reference */
+.reference {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+  border-left: 4px solid #3498db;
+}
+
+.referenceIcon {
+  color: #3498db;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.reference p {
+  color: #34495e;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Code Intro */
+.codeIntro {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border-left: 4px solid #3498db;
+}
+
+.codeIntro p {
+  color: #34495e;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Code Grid */
+.codeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.codeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px 25px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 4px solid #3498db;
+}
+
+.codeCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.codeIcon {
+  font-size: 2.5rem;
+  color: #3498db;
+  margin-bottom: 20px;
+}
+
+.codeContent h3 {
+  color: #2c3e50;
+  margin: 0 0 15px 0;
+  font-size: 1.3rem;
+}
+
+.codeContent p {
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Compliance Content */
+.complianceContent {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.complianceItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.complianceIcon {
+  font-size: 1.8rem;
+  color: #3498db;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.complianceText h3 {
+  color: #2c3e50;
+  margin: 0 0 12px 0;
+  font-size: 1.2rem;
+}
+
+.complianceText p {
+  color: #34495e;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .codeGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .section {
+    padding: 20px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+  
+  .tabNav {
+    flex-direction: column;
+  }
+  
+  .tabButton {
+    justify-content: center;
+  }
+  
+  .guidelineHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .guidelineItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .prohibitedItem, .rightsItem, .accountabilityItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .codeGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .complianceItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.6rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.3rem;
+  }
+  
+  .guidelineCard, .complianceItem {
+    padding: 15px;
+  }
+  
+  .codeCard {
+    padding: 20px 15px;
+  }
+  
+  .codeIcon {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,318 @@
+/* LegalNotices.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #2c3e50;
+  font-size: 2.3rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.titleIcon {
+  color: #3498db;
+  font-size: 2rem;
+}
+
+.subtitle {
+  color: #1f1f1f;
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Tab Navigation */
+.tabNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tabButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 25px;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.tabButton:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.tabButton.active {
+  background: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.tabIcon {
+  font-size: 1.2rem;
+}
+
+/* Section Styling */
+.section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+.sectionIcon {
+  color: #e74c3c;
+  font-size: 1.5rem;
+}
+
+/* Notice Cards */
+.noticeCard {
+  margin-bottom: 30px;
+  border-left: 4px solid #3498db;
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+}
+
+.noticeHeader {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.noticeNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #3498db;
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.noticeHeader h3 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.noticeContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.noticeItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.noticeIcon {
+  color: #3498db;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.noticeText h4 {
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+}
+
+.noticeText p {
+  color: #34495e;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Template Intro */
+.templateIntro {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border-left: 4px solid #3498db;
+}
+
+.templateIntro p {
+  color: #34495e;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Template Cards */
+.templateCard {
+  margin-bottom: 30px;
+  border-left: 4px solid #3498db;
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+}
+
+.templateHeader {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.templateIcon {
+  font-size: 1.8rem;
+  color: #3498db;
+}
+
+.templateHeader h3 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.templateContent {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.templateDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.templateField {
+  color: #34495e;
+  line-height: 1.6;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .noticeContent {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .section {
+    padding: 20px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+  
+  .tabNav {
+    flex-direction: column;
+  }
+  
+  .tabButton {
+    justify-content: center;
+  }
+  
+  .noticeHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .noticeItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .templateHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.6rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.3rem;
+  }
+  
+  .noticeCard, .templateCard {
+    padding: 15px;
+  }
+  
+  .templateContent {
+    padding: 15px;
+  }
+  
+  .noticeNumber {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}

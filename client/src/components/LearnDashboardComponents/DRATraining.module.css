@@ -1,0 +1,287 @@
+/* DRATraining.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #2c3e50;
+  font-size: 2.3rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.titleIcon {
+  color: #3498db;
+  font-size: 2rem;
+}
+
+.subtitleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subtitle {
+  color: #1d1d1d;
+  font-size: 1.2rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.subtitleHindi {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+.sectionIcon {
+  color: #e74c3c;
+  font-size: 1.5rem;
+}
+
+.moduleContent {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.topicItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid #3498db;
+}
+
+.topicItem:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.topicIcon {
+  color: #3498db;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.topicItem span {
+  color: #34495e;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.assessmentContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.assessmentItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 4px solid #3498db;
+}
+
+.assessmentItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.assessmentIcon {
+  font-size: 1.8rem;
+  color: #3498db;
+  flex-shrink: 0;
+}
+
+.assessmentDetails h3 {
+  color: #2c3e50;
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.assessmentDetails p {
+  color: #1d1d1d;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Module-specific colors */
+.section:nth-child(1) .topicItem {
+  border-left-color: #f39c12;
+}
+.section:nth-child(1) .topicIcon {
+  color: #f39c12;
+}
+
+.section:nth-child(2) .topicItem {
+  border-left-color: #3498db;
+}
+.section:nth-child(2) .topicIcon {
+  color: #3498db;
+}
+
+.section:nth-child(3) .topicItem {
+  border-left-color: #f39c12;
+}
+.section:nth-child(3) .topicIcon {
+  color: #f39c12;
+}
+
+.section:nth-child(4) .topicItem {
+  border-left-color: #3498db;
+}
+.section:nth-child(4) .topicIcon {
+  color: #3498db;
+}
+
+.section:nth-child(5) .topicItem {
+  border-left-color: #f39c12;
+}
+.section:nth-child(5) .topicIcon {
+  color: #f39c12;
+}
+
+.section:nth-child(6) .topicItem {
+  border-left-color: #3498db;
+}
+.section:nth-child(6) .topicIcon {
+  color: #3498db;
+}
+
+.section:nth-child(7) .topicItem {
+  border-left-color: #f39c12;
+}
+.section:nth-child(7) .topicIcon {
+  color: #f39c12;
+}
+
+.section:nth-child(8) .assessmentItem {
+  border-left-color: #3498db;
+}
+.section:nth-child(8) .assessmentIcon {
+  color: #3498db;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .assessmentContent {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .section {
+    padding: 20px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+  
+  .topicItem {
+    padding: 12px;
+  }
+  
+  .assessmentContent {
+    grid-template-columns: 1fr;
+  }
+  
+  .assessmentItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.6rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .subtitleHindi {
+    font-size: 1.1rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.3rem;
+  }
+  
+  .topicItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+  }
+  
+  .topicIcon {
+    margin-bottom: 5px;
+  }
+}

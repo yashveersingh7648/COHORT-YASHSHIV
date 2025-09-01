@@ -1,0 +1,217 @@
+/* CommonTerms.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #2c3e50;
+  font-size: 2.3rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.titleIcon {
+  color: #3498db;
+  font-size: 2rem;
+}
+
+.subtitle {
+  color: #1d1d1d;
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+.sectionIcon {
+  color: #e74c3c;
+  font-size: 1.5rem;
+}
+
+.termsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.termCard {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 4px solid #3498db;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.termCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.termHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.termIcon {
+  font-size: 1.5rem;
+  color: #3498db;
+  flex-shrink: 0;
+}
+
+.termCard h3 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.termDefinition {
+  color: #242424;
+  margin: 0;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+/* Category-specific colors */
+.section:nth-child(1) .termCard {
+  border-left-color: #f39c12;
+}
+.section:nth-child(1) .termIcon {
+  color: #f39c12;
+}
+
+.section:nth-child(2) .termCard {
+  border-left-color: #3498db;
+}
+.section:nth-child(2) .termIcon {
+  color: #3498db;
+}
+
+.section:nth-child(3) .termCard {
+  border-left-color: #f39c12;
+}
+.section:nth-child(3) .termIcon {
+  color: #f39c12;
+}
+
+.section:nth-child(4) .termCard {
+  border-left-color: #3498db;
+}
+.section:nth-child(4) .termIcon {
+  color: #3498db;
+}
+
+.section:nth-child(5) .termCard {
+  border-left-color: #f39c12;
+}
+.section:nth-child(5) .termIcon {
+  color: #f39c12;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .termsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .section {
+    padding: 20px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+  
+  .termsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .termCard {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.6rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.3rem;
+  }
+  
+  .termHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .termCard h3 {
+    font-size: 1.1rem;
+  }
+}
