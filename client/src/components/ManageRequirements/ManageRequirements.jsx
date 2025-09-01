@@ -7,7 +7,7 @@ import styles from './ManageRequirements.module.css';
 
 // const BASE_URL = "http://localhost:8000";
 // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-backend.onrender.com";
 
 const ManageRequirements = () => {
   const [items, setItems] = useState([]);

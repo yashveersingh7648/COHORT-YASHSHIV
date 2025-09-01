@@ -16,7 +16,7 @@ const CompanyForm = ({ formData = {}, onSave, validationErrors = {} }) => {
     operationalLocations: "",
     msmeRegistered: "",
     companyGst: "",
-    draCertified: "",
+    // draCertified: "",
     companyAddress: "",
     workstations: "",
     associatedCompanies: "",
@@ -72,7 +72,7 @@ const CompanyForm = ({ formData = {}, onSave, validationErrors = {} }) => {
     if (!localFormData.operationalLocations) newErrors.operationalLocations = "Operational locations required";
     if (!localFormData.msmeRegistered) newErrors.msmeRegistered = "MSME status required";
     if (!localFormData.companyGst) newErrors.companyGst = "GST is required";
-    if (!localFormData.draCertified) newErrors.draCertified = "DRA certification status required";
+    // if (!localFormData.draCertified) newErrors.draCertified = "DRA certification status required";
     if (!localFormData.companyAddress?.trim()) newErrors.companyAddress = "Address is required";
     if (!localFormData.workstations) newErrors.workstations = "Workstations count required";
     if (!localFormData.associatedCompanies) newErrors.associatedCompanies = "Associated companies count required";
@@ -462,7 +462,7 @@ const CompanyForm = ({ formData = {}, onSave, validationErrors = {} }) => {
           </div>
           {renderError("companyGst")}
         </div>
-        <div className={styles.formGroup}>
+        {/* <div className={styles.formGroup}>
           <label>DRA Certified <span className={styles.required}>*</span></label>
           <select
             name="draCertified"
@@ -475,7 +475,7 @@ const CompanyForm = ({ formData = {}, onSave, validationErrors = {} }) => {
             <option value="No">No</option>
           </select>
           {renderError("draCertified")}
-        </div>
+        </div> */}
       </div>
 
       <h2 className={styles.formTitle}>Address Information</h2>

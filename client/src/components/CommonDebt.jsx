@@ -10,10 +10,8 @@ import {
   FaSearchDollar, FaHandHoldingUsd, FaStore, FaClipboardCheck,
   FaPhone, FaSms,  FaUsers, FaChartBar,
   FaMapMarkerAlt, FaCog, FaIdCard, FaMobile, FaClock,
-  FaFileInvoiceDollar, FaPercent, FaCalendarAlt, FaMoneyCheckAlt,
-  FaCoins, FaCreditCard, FaHome, FaGraduationCap, FaBriefcaseMedical,
-  FaTractor, FaHandHoldingHeart, FaIndustry, FaUserFriends,
-  FaShieldVirus, FaHandPaper, FaChartPie, FaTable, FaMapMarkedAlt,
+  FaFileInvoiceDollar, FaCalendarAlt, FaMoneyCheckAlt,
+  FaCoins, FaIndustry, FaChartPie, FaTable, FaMapMarkedAlt,
   FaHistory, FaUserCheck, FaFileMedical, FaRegHandshake,FaCalculator
 } from 'react-icons/fa';
 

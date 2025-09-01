@@ -448,14 +448,14 @@ const companySchema = new mongoose.Schema({
     trim: true,
     uppercase: true
   },
-  draCertified: { 
-    type: String, 
-    required: [true, 'DRA certification status is required'],
-    enum: {
-      values: ['Yes', 'No'],
-      message: 'Please select DRA certification status'
-    }
-  },
+  // draCertified: { 
+  //   type: String, 
+  //   required: [true, 'DRA certification status is required'],
+  //   enum: {
+  //     values: ['Yes', 'No'],
+  //     message: 'Please select DRA certification status'
+  //   }
+  // },
 
   // Address Information
   companyAddress: { 

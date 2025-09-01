@@ -33,6 +33,7 @@ const PORT = process.env.PORT || 8000;
 const otpRoutes = require('./routes/otpRoutes');
 const transporter = require('./utils/emailSender');
 
+// app.options("*", cors(corsOptions));
 
 // const ccavReqHandler = require('./ccavenue/ccavRequestHandler.js');
 // const ccavResHandler = require('./ccavenue/ccavResponseHandler.js');
@@ -56,7 +57,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Serve static files with proper headers
 app.use('/uploads', express.static(uploadsDir, {
   setHeaders: (res, filePath) => {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.set('Access-Control-Allow-Origin', 'https://www.suppcohort.com');
     res.set('Access-Control-Allow-Credentials', 'true');
     
     // Set proper Content-Type based on file extension
@@ -80,13 +81,18 @@ app.use('/uploads', express.static(uploadsPath));
 //  origin: true,
 //   credentials: true
 // }));
+app.use(cors()); 
+
+
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://68b00c3a08886a8ce3faee28--cohor.netlify.app'],
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type']
+  // origin: ['http://localhost:5173' , 'https://www.suppcohort.com'],
+  origin: true,
+   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
+  credentials: true
 }));
 // Middleware
-// app.use(cors()); 
+// app.options('*', cors());
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -154,8 +160,8 @@ app.use('/api/busnies', busniesRoutes);
 
 
 
-app.use('/api', authRoutes); 
-// app.use('/api/auth', authRoutes);
+// app.use('/api', authRoutes); 
+app.use('/api/auth', authRoutes);
 // OR
 // app.use('/auth', authRoutes);
 // app.use('/api/companies', agencyRoutes); 
@@ -189,6 +195,11 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   res.json({ filePath });
 });
 // Health Check Endpoint
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
+
 app.get("/health", (req, res) => {
   res.status(200).json({ 
     status: "OK",

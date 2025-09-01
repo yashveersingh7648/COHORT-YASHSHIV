@@ -241,7 +241,7 @@ import {
   getRemovedAgencyIds
 } from './../utils/dashboardState';
 
-const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-backend.onrender.com";
 
 const ImageSlider = () => {
   const [requirements, setRequirements] = useState([]);
@@ -250,15 +250,18 @@ const ImageSlider = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+
   const { isAuthenticated, userType } = useAuth();
   const navigate = useNavigate();
 
   const animationDuration = 60;
 
-  // localStorage se initial value load karo
-  const [agencyViewCount, setAgencyViewCount] = useState(() => {
-    return parseInt(localStorage.getItem("agencyViewCount") || "0", 10);
-  });
+  // Free view counts
+  const [agencyReqCount, setAgencyReqCount] = useState(() => parseInt(localStorage.getItem("agencyReqCount") || "0", 10));
+  const [agencyJobCount, setAgencyJobCount] = useState(() => parseInt(localStorage.getItem("agencyJobCount") || "0", 10));
+
+  const [guestReqCount, setGuestReqCount] = useState(() => parseInt(localStorage.getItem("guestReqCount") || "0", 10));
+  const [guestJobCount, setGuestJobCount] = useState(() => parseInt(localStorage.getItem("guestJobCount") || "0", 10));
 
   const [isSubscribed, setIsSubscribed] = useState(() => {
     return localStorage.getItem("isSubscribed") === "true";
@@ -334,40 +337,77 @@ const getAnimationDuration = (items) => {
     }
   };
 
-
   const handleCardClick = (item, type) => {
-    // Guest → Login page bhej do
-     window.scrollTo({
-      top: 0,
-      behavior: 'smooth' 
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     if (!isAuthenticated) {
       navigate('/Login_SignUp');
       return;
     }
 
-    // Agency restriction
-    if (userType === 'agency') {
-      if (!isSubscribed) {
-        if (agencyViewCount >= 2) {
+
+
+    
+    const rawUser =
+      JSON.parse(localStorage.getItem("user")) ||
+      JSON.parse(localStorage.getItem("businessUser")) || {};
+    const isGuest = rawUser?.isGuest === true || rawUser?.isGuest === "true";
+
+
+    // Guest restriction (1 Job + 1 Requirement)
+    if (isGuest && !isSubscribed) {
+      if (type === "manpower") {
+        if (guestJobCount >= 1) {
           setShowPaymentModal(true);
           return;
         }
-        // free quota use karna
-        const newCount = agencyViewCount + 1;
-        setAgencyViewCount(newCount);
-        localStorage.setItem("agencyViewCount", newCount); // save localStorage
+        const newCount = guestJobCount + 1;
+        setGuestJobCount(newCount);
+        localStorage.setItem("guestJobCount", newCount);
+      }
+      if (type === "requirement") {
+        if (guestReqCount >= 1) {
+          setShowPaymentModal(true);
+          return;
+        }
+        const newCount = guestReqCount + 1;
+        setGuestReqCount(newCount);
+        localStorage.setItem("guestReqCount", newCount);
       }
     }
 
-    // Lender ya subscribed agency → allow navigation
+
+    
+    // Agency restriction (2 Jobs + 2 Requirements)
+    if (userType === 'agency' && !isSubscribed) {
+      if (type === "manpower") {
+        if (agencyJobCount >= 2) {
+          setShowPaymentModal(true);
+          return;
+        }
+        const newCount = agencyJobCount + 1;
+        setAgencyJobCount(newCount);
+        localStorage.setItem("agencyJobCount", newCount);
+      }
+      if (type === "requirement") {
+        if (agencyReqCount >= 2) {
+          setShowPaymentModal(true);
+          return;
+        }
+        const newCount = agencyReqCount + 1;
+        setAgencyReqCount(newCount);
+        localStorage.setItem("agencyReqCount", newCount);
+      }
+    }
+
+    // Subscribed/Lender/Business → unlimited
     navigate(`/detail/${type}/${item._id}`, { state: { item, type } });
   };
 
   const handlePaymentSuccess = () => {
     setShowPaymentModal(false);
     setIsSubscribed(true);
-    localStorage.setItem("isSubscribed", "true"); // subscription persist
+    localStorage.setItem("isSubscribed", "true");
     alert('✅ Payment successful! Now you can view unlimited cards.');
   };
 
@@ -384,23 +424,18 @@ const getAnimationDuration = (items) => {
     };
   }, []);
 
-  // reset agar agency login kare to
+  // reset counts when not guest or not agency
   useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user")) || {};
+    if (!userData?.isGuest) {
+      localStorage.removeItem("guestJobCount");
+      localStorage.removeItem("guestReqCount");
+    }
     if (userType !== 'agency') {
-      localStorage.removeItem("agencyViewCount");
-      localStorage.removeItem("isSubscribed");
+      localStorage.removeItem("agencyJobCount");
+      localStorage.removeItem("agencyReqCount");
     }
   }, [userType]);
-
-
-
-   const handleFooterLinkClick = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' 
-    });
-  }; 
-
 
   if (loading) {
     return (
@@ -417,9 +452,7 @@ const getAnimationDuration = (items) => {
         <div className="error-icon">⚠️</div>
         <h3>Error Loading Data</h3>
         <p>{error}</p>
-        <button onClick={fetchAllData} className="retry-button">
-          Retry
-        </button>
+        <button onClick={fetchAllData} className="retry-button">Retry</button>
       </div>
     );
   }
@@ -431,37 +464,27 @@ const getAnimationDuration = (items) => {
         <div className="payment-modal-overlay">
           <div className="payment-modal">
             <h3>Premium Subscription Required</h3>
-            <p>You have already viewed 2 cards. Please subscribe for unlimited access.</p>
+            <p>Your free views are over. Please subscribe for unlimited access.</p>
             <div className="payment-options">
               <button className="payment-option">Monthly - ₹999</button>
               <button className="payment-option">Yearly - ₹9999</button>
             </div>
             <div className="modal-actions">
-              <button onClick={() => setShowPaymentModal(false)} className="cancel-btn">
-                Cancel
-              </button>
-              <button onClick={handlePaymentSuccess} className="subscribe-btn">
-                Subscribe Now
-              </button>
+              <button onClick={() => setShowPaymentModal(false)} className="cancel-btn">Cancel</button>
+              <button onClick={handlePaymentSuccess} className="subscribe-btn">Subscribe Now</button>
             </div>
           </div>
         </div>
       )}
 
-       <div className="three-column-slider">
-        
-        {/* Left Section - Manpower Data (Agency can view) */}
+      <div className="three-column-slider">
+        {/* Jobs */}
         <div className="slider-column">
           <h2 className="column-title">Job Positions ({manpowerData.length})</h2>
           <div className="slider-wrapper">
             <div 
               className="slider-track"
-              style={{ 
-                animation: `scrollUp ${getAnimationDuration(manpowerData)} linear infinite`,
-                animationPlayState: loading ? 'paused' : 'running'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
-              onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
+              style={{ animation: `scrollUp ${getAnimationDuration(manpowerData)} linear infinite` }}
             >
               {manpowerData.length > 0 ? (
                 manpowerData.map((item) => (
@@ -476,9 +499,7 @@ const getAnimationDuration = (items) => {
                       <p><strong>Positions:</strong> {item.noOfPositions || '-'}</p>
                       <p><strong>Experience:</strong> {item.experience || '-'}</p>
                       <p><strong>Location:</strong> {item.location || '-'}</p>
-                      {!isAuthenticated && (
-                        <p className="login-prompt">Login to view details</p>
-                      )}
+                      {!isAuthenticated && (<p className="login-prompt">Login to view details</p>)}
                     </div>
                   </div>
                 ))
@@ -489,18 +510,13 @@ const getAnimationDuration = (items) => {
           </div>
         </div>
 
-        {/* Center Section - Requirements Data (Agency can view) */}
+        {/* Requirements */}
         <div className="slider-column">
           <h2 className="column-title">Company Requirements ({requirements.length})</h2>
           <div className="slider-wrapper">
             <div 
               className="slider-track"
-              style={{ 
-                animation: `scrollUp ${getAnimationDuration(requirements)} linear infinite`,
-                animationPlayState: loading ? 'paused' : 'running'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
-              onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
+              style={{ animation: `scrollUp ${getAnimationDuration(requirements)} linear infinite` }}
             >
               {requirements.length > 0 ? (
                 requirements.map((item) => (
@@ -518,10 +534,7 @@ const getAnimationDuration = (items) => {
                       <p><strong>City:</strong> {item.companyCity || '-'}</p>
                       <p><strong>State:</strong> {item.companyState || '-'}</p>
                       <p><strong>Pincode:</strong> {item.companyPincode || '-'}</p>
-                      
-                      {!isAuthenticated && (
-                        <p className="login-prompt">Login to view contact details</p>
-                      )}
+                      {!isAuthenticated && (<p className="login-prompt">Login to view contact details</p>)}
                     </div>
                   </div>
                 ))
@@ -532,18 +545,13 @@ const getAnimationDuration = (items) => {
           </div>
         </div>
 
-        {/* Right Section - Agency Data (Payment required for agency users) */}
+        {/* Agencies */}
         <div className="slider-column">
           <h2 className="column-title">Agencies ({agencyData.length})</h2>
           <div className="slider-wrapper">
             <div 
               className="slider-track"
-              style={{ 
-                animation: `scrollUp ${getAnimationDuration(agencyData)} linear infinite`,
-                animationPlayState: loading ? 'paused' : 'running'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
-              onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
+              style={{ animation: `scrollUp ${getAnimationDuration(agencyData)} linear infinite` }}
             >
               {agencyData.length > 0 ? (
                 agencyData.map((item) => (
@@ -566,12 +574,7 @@ const getAnimationDuration = (items) => {
                       <p><strong>Email:</strong> 
                         {userType === 'lender' ? (item.companyEmail || item.userEmail || '-') : maskSensitiveData(item.companyEmail || item.userEmail, 'email')}
                       </p>
-                      
-                     
-                      
-                      {!isAuthenticated && (
-                        <p className="login-prompt">Login to view details</p>
-                      )}
+                      {!isAuthenticated && (<p className="login-prompt">Login to view details</p>)}
                     </div>
                   </div>
                 ))

@@ -1215,7 +1215,7 @@ const DashboardPage = ({role}) => {
                       >
                         {isSubmitting ? (
                           <>
-                            <FaSpinner className={styles.spinnerIcon} spin="true" />
+                            <FaSpinner className={styles.spinnerIcon} spin />
                             Submitting...
                           </>
                         ) : (

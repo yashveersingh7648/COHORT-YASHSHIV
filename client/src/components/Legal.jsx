@@ -463,6 +463,9 @@ const Legal = () => {
             </div>
 
             <div className="card-grid">
+
+
+  
               <div className="card">
                 <h3><FaExclamationTriangle /> Prohibited Practices</h3>
                 <ul>

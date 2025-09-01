@@ -69,6 +69,12 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  designation: {
+  type: String,
+  required: function () {
+    return this.userType === 'lender'; 
+  }
+},
   email: {
     type: String,
     required: true,
@@ -89,6 +95,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: function () { return this.userType === 'lender'; }
   },
+   draCertified: { type: String, enum: ['Yes','No'] },
   isAdmin: { type: Boolean, default: false },
   isGuest: { type: Boolean, default: false },
   isVerified: { type: Boolean, default: false },

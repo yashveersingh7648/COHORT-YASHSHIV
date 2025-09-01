@@ -436,15 +436,14 @@ const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "12h" });
 };
 
+// Utility function: find lender by ID or name
 const findLender = async ({ lenderId, lenderName }) => {
   let lender = null;
 
-  // Try by ID first
   if (lenderId && lenderId !== "other") {
     lender = await Lender.findById(lenderId);
   }
 
-  // Try by name
   if (!lender && lenderName && lenderName !== "Other") {
     const cleanName = lenderName.trim();
     const abbreviationMatch = cleanName.match(/\(([^)]+)\)/);
@@ -454,22 +453,24 @@ const findLender = async ({ lenderId, lenderName }) => {
       $or: [
         { lenderName: { $regex: `^${cleanName}$`, $options: "i" } },
         { lenderName: { $regex: cleanName, $options: "i" } },
-        ...(abbreviation ? [
-          { lenderName: { $regex: abbreviation, $options: "i" } },
-          { abbreviations: abbreviation.toUpperCase() }
-        ] : [])
-      ]
+        ...(abbreviation
+          ? [
+              { lenderName: { $regex: abbreviation, $options: "i" } },
+              { abbreviations: abbreviation.toUpperCase() },
+            ]
+          : []),
+      ],
     });
   }
 
   return lender;
 };
 
-// SEND OTP
-router.post("/auth/send-otp", async (req, res) => {
+// 🔹 SEND OTP
+router.post("/send-otp", async (req, res) => {
   try {
-    const { email, lenderName, lenderId, name, userType } = req.body;
-    console.log("OTP request:", { email, lenderName, lenderId, userType });
+    const { email, lenderName, lenderId, name, userType, designation, draCertified } = req.body;
+    console.log("OTP request:", { email, lenderName, lenderId, userType, designation, draCertified });
 
     let lender = null;
 
@@ -479,42 +480,47 @@ router.post("/auth/send-otp", async (req, res) => {
       if (!lender) {
         return res.status(404).json({
           success: false,
-          message: "Lender not found. Please select a valid lender."
+          message: "Lender not found. Please select a valid lender.",
         });
       }
 
-      // Flexible email domain validation
       const emailDomain = email.split("@")[1].toLowerCase();
       if (lender.domain && lender.domain !== "other") {
         const expectedDomains = [
           lender.domain.toLowerCase(),
-          lender.domain.replace(/\.com$/, '.co.in').toLowerCase(),
-          lender.domain.replace(/gilts/, '').toLowerCase()
+          lender.domain.replace(/\.com$/, ".co.in").toLowerCase(),
+          lender.domain.replace(/gilts/, "").toLowerCase(),
         ];
         if (!expectedDomains.includes(emailDomain)) {
           return res.status(400).json({
             success: false,
             message: `Email domain does not match ${lender.lenderName}. Please use a valid @${lender.domain} email`,
-            expectedDomain: lender.domain
+            expectedDomain: lender.domain,
           });
         }
       }
     }
 
-    // Find or create user
     let user = await User.findOne({ email });
     if (!user) {
+      if (userType === "lender" && !designation) {
+        return res.status(400).json({
+          success: false,
+          message: "Designation is required for lender users",
+        });
+      }
+
       user = new User({
         name,
         email,
         userType: userType || "guest",
-        isGuest: userType === "guest", // ✅ Set isGuest based on userType
+        isGuest: userType === "guest",
         lender: userType === "lender" ? lenderName : undefined,
-        isVerified: false
+        designation: userType === "lender" ? designation : undefined,
+        isVerified: false,
       });
       await user.save();
     } else {
-      // ✅ Update existing user's isGuest status if needed
       if (userType === "guest") {
         user.isGuest = true;
         user.userType = "guest";
@@ -522,22 +528,20 @@ router.post("/auth/send-otp", async (req, res) => {
       }
     }
 
-    // Generate OTP
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
     user.otp = { code: otpCode, expiresAt: new Date(Date.now() + 10 * 60 * 1000) };
     await user.save();
 
     console.log(`OTP for ${email}: ${otpCode}`);
-    console.log(`User type: ${user.userType}, Is guest: ${user.isGuest}`);
 
     const adminEmails = ["info@ciphershieldtech.com", "admin@ciphershieldtech.com"];
     const isAdmin = adminEmails.includes(email.toLowerCase());
 
-    res.json({ 
-      success: true, 
-      message: "OTP sent successfully", 
-      isGuest: user.isGuest, // ✅ Send isGuest in response
-      isAdmin 
+    res.json({
+      success: true,
+      message: "OTP sent successfully",
+      isGuest: user.isGuest,
+      isAdmin,
     });
   } catch (err) {
     console.error("Send OTP error:", err);
@@ -546,7 +550,7 @@ router.post("/auth/send-otp", async (req, res) => {
 });
 
 // 🔹 RESEND OTP
-router.post("/auth/resend-otp", async (req, res) => {
+router.post("/resend-otp", async (req, res) => {
   try {
     const { email } = req.body;
     const user = await User.findOne({ email });
@@ -572,9 +576,9 @@ router.post("/auth/resend-otp", async (req, res) => {
 });
 
 // 🔹 VERIFY OTP
-router.post("/auth/verify-otp", async (req, res) => {
+router.post("/verify-otp", async (req, res) => {
   try {
-    const { email, otp, userType } = req.body;
+    const { email, otp, userType, designation } = req.body;
     const user = await User.findOne({ email });
 
     if (!user || !user.otp || user.otp.code !== otp) {
@@ -585,7 +589,10 @@ router.post("/auth/verify-otp", async (req, res) => {
       return res.status(400).json({ success: false, message: "OTP expired" });
     }
 
-    // ✅ Update user type and guest status if needed
+    if (userType === "lender" && designation) {
+      user.designation = designation;
+    }
+
     if (userType === "guest") {
       user.userType = "guest";
       user.isGuest = true;
@@ -609,9 +616,10 @@ router.post("/auth/verify-otp", async (req, res) => {
         name: user.name,
         userType: user.userType,
         lender: user.lender,
-        isAdmin: isAdmin,
-        isGuest: user.isGuest, // ✅ Send isGuest in response
-        isVerified: user.isVerified
+        designation: user.designation,
+        isAdmin,
+        isGuest: user.isGuest,
+        isVerified: user.isVerified,
       },
       token,
     });
@@ -620,11 +628,12 @@ router.post("/auth/verify-otp", async (req, res) => {
     res.status(500).json({ success: false, message: "Server error: " + error.message });
   }
 });
-// 🔹 GET LENDERS (search by name/domain)
+
+// 🔹 GET LENDERS
 router.get("/lenders", async (req, res) => {
   try {
     const { search } = req.query;
-    let query = {}; // ⚡ removed isActive:true (if not present in DB)
+    let query = {};
 
     if (search && search.trim() !== "") {
       query = {
@@ -636,15 +645,11 @@ router.get("/lenders", async (req, res) => {
       };
     }
 
-    const lenders = await Lender.find(query)
-      .select("lenderName domain")
-      .sort({ lenderName: 1 });
+    const lenders = await Lender.find(query).select("lenderName domain").sort({ lenderName: 1 });
     res.json({ success: true, data: lenders });
   } catch (error) {
     console.error("Get lenders error:", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Server error: " + error.message });
+    res.status(500).json({ success: false, message: "Server error: " + error.message });
   }
 });
 

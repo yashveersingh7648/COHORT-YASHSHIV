@@ -9,7 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 
 // const BASE = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-const API_URL = import.meta.env.VITE_API_URL || "http://https://supcohort-muvm.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-backend.onrender.com";
 
 const AuthForm = () => {
   const { loginAgency } = useAuth();

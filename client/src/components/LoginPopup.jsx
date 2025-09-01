@@ -493,43 +493,35 @@ import { useAuth } from '../context/AuthContext';
 
 Modal.setAppElement('#root');
 
-// Admin email configuration
 const ADMIN_EMAILS = ['info@ciphershieldtech.com', 'admin@ciphershieldtech.com'];
 const ADMIN_REDIRECT = '/StatusDashboard';
-
-// API configuration
-const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-muvm.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL || "https://supcohort-backend.onrender.com";
 
 const loadOptions = async (inputValue, callback) => {
   try {
     const response = await axios.get(`${API_URL}/api/lenders?search=${inputValue}`);
     const lenders = response?.data?.data || [];
-    
-    const options = lenders.map(lender => ({
-      label: lender.lenderName || 'Unknown Lender',
-      value: lender._id || lender.lenderName || 'other',
-      domain: lender.domain || 'other'
+    const options = lenders.map(l => ({
+      label: l.lenderName || 'Unknown Lender',
+      value: l._id || l.lenderName || 'other',
+      domain: l.domain || 'other'
     }));
-
     if (!options.some(o => o.label === "Other")) {
-      options.unshift({
-        label: "Other",
-        value: "other",
-        domain: "other"
-      });
+      options.unshift({ label: "Other", value: "other", domain: "other" });
     }
-
     callback(options);
-  } catch (error) {
-    console.error("Failed to load lenders:", error);
+  } catch (e) {
+    console.error("Failed to load lenders:", e);
     callback([{ label: "Other", value: "other", domain: "other" }]);
   }
 };
 
 const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
+  const [designation, setDesignation] = useState('');
+  const [draCertified, setDraCertified] = useState('');
   const navigate = useNavigate();
   const { loginBusiness } = useAuth();
-  
+
   const [activeTab, setActiveTab] = useState('lender');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -542,21 +534,19 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
   const [isAdminEmail, setIsAdminEmail] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
 
-  // ✅ Prevent body scroll when modal is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+    if (isOpen) { 
+      document.body.style.overflow = 'hidden'; 
+    } else { 
+      document.body.style.overflow = 'unset'; 
     }
-    
-    return () => {
-      document.body.style.overflow = 'unset';
+    return () => { 
+      document.body.style.overflow = 'unset'; 
     };
   }, [isOpen]);
 
-  useEffect(() => {
-    setIsAdminEmail(ADMIN_EMAILS.includes(email.toLowerCase()));
+  useEffect(() => { 
+    setIsAdminEmail(ADMIN_EMAILS.includes(email.toLowerCase())); 
   }, [email]);
 
   useEffect(() => {
@@ -576,99 +566,84 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
     return () => clearTimeout(timer);
   }, [otpResendTimer]);
 
-  const handleAgencyLoginClick = () => {
-    handleClose();
-    navigate('/Login_SignUp');
+  const handleAgencyLoginClick = () => { 
+    handleClose(); 
+    navigate('/Login_SignUp'); 
   };
 
   const handleGuestSignupClick = () => {
     handleClose();
     navigate('/BusinessSignupModal', { 
       state: { 
-        userType: 'guest',
-        prefilledEmail: email,
+        userType: 'guest', 
+        prefilledEmail: email, 
         prefilledName: name 
-      }
+      } 
     });
-  };
-
-  // Validate business email format
-  const isValidBusinessEmail = (email) => {
-    const personalEmailDomains = [
-      'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 
-      'rediffmail.com', 'aol.com', 'icloud.com', 'protonmail.com'
-    ];
-    
-    const domain = email.split('@')[1]?.toLowerCase();
-    return !personalEmailDomains.includes(domain);
   };
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
-    
-    if (!email.includes('@')) {
-      setError('Please enter valid email');
-      return;
-    }
 
-    // Guest login ke liye business email validation
-    if (activeTab === 'guest' && !isValidBusinessEmail(email)) {
-      setError('Please use your business email address for guest login');
-      return;
-    }
+    if (!email.includes('@')) return setError('Please enter valid email');
+    if (!name) return setError('Please enter your name');
+    if (activeTab === 'lender' && !selectedLender) return setError('Please select a lender');
 
-    if (!name) {
-      setError('Please enter your name');
-      return;
-    }
+    // Require DRA status for Guest
+    if (activeTab === 'guest' && !draCertified) return setError('Please select DRA Certified status');
 
-    if (activeTab === 'lender' && !selectedLender) {
-      setError('Please select a lender');
-      return;
-    }
-
-    setIsLoading(true);
+    setIsLoading(true); 
     setError('');
-
+    
     try {
-      const response = await axios.post(`${API_URL}/api/auth/send-otp`, {
+      const payload = {
         email: email.trim(),
         lenderName: selectedLender?.label,
-        name: name,
+        name,
+        designation,
         userType: activeTab
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        timeout: 10000
+      };
+
+      // Only include draCertified for guest users
+      if (activeTab === 'guest') {
+        payload.draCertified = draCertified;
+      }
+
+      const response = await axios.post(`${API_URL}/api/auth/send-otp`, payload, { 
+        headers: { 'Content-Type': 'application/json' }, 
+        timeout: 10000 
       });
 
       if (response.data.success) {
         setShowOtpField(true);
         setOtpResendTimer(30);
-        if (response.data.isGuest) {
-          setSelectedLender({ label: 'Other', value: 'other' });
-        }
+        if (response.data.isGuest) setSelectedLender({ label: 'Other', value: 'other' });
       } else {
         setError(response.data.message);
-        
-        if (response.data.message.includes('No matching lender') && selectedLender?.label === 'Other') {
-          navigate('/BusinessSignupModal', { state: { prefilledEmail: email, prefilledName: name } });
+        if (response.data.message?.includes('No matching lender') && selectedLender?.label === 'Other') {
+          navigate('/BusinessSignupModal', { 
+            state: { 
+              prefilledEmail: email, 
+              prefilledName: name 
+            } 
+          });
         }
       }
     } catch (err) {
       let errorMsg = 'Network error';
-      
       if (err.code === 'ECONNABORTED') {
         errorMsg = 'Request timeout. Please try again.';
       } else if (err.response) {
         errorMsg = err.response?.data?.message || 'Server error';
       }
-
       setError(errorMsg);
-      
       if (errorMsg.includes('No matching lender') && selectedLender?.label === 'Other') {
-        navigate('/BusinessSignupModal', { state: { prefilledEmail: email, prefilledName: name } });
+        navigate('/BusinessSignupModal', { 
+          state: { 
+            prefilledEmail: email, 
+            prefilledName: name 
+          } 
+        });
       }
     } finally {
       setIsLoading(false);
@@ -678,25 +653,23 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
   const handleResendOtp = async () => {
     if (otpResendTimer > 0) return;
     
-    setIsLoading(true);
+    setIsLoading(true); 
     setError('');
-
+    
     try {
-      const response = await axios.post(`${API_URL}/api/auth/resend-otp`, {
-        email: email.trim()
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.data.success) {
-        setOtpResendTimer(30);
-        setError('');
+      const response = await axios.post(
+        `${API_URL}/api/auth/resend-otp`, 
+        { email: email.trim() },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      
+      if (response.data.success) { 
+        setOtpResendTimer(30); 
+        setError(''); 
       } else {
         setError(response.data.message);
       }
-    } catch (err) {
+    } catch {
       setError('Failed to resend OTP. Please try again.');
     } finally {
       setIsLoading(false);
@@ -705,26 +678,30 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
 
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
+    if (otp.length !== 6) return setError('Please enter the 6-digit OTP');
 
-    if (otp.length !== 6) {
-      setError('Please enter the 6-digit OTP');
-      return;
-    }
-
-    setIsLoading(true);
+    setIsLoading(true); 
     setError('');
-
+    
     try {
-      const response = await axios.post(`${API_URL}/api/auth/verify-otp`, {
+      const payload = {
         email: email.trim(),
         otp,
         userType: activeTab,
-        lenderName: selectedLender?.label
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+        lenderName: selectedLender?.label,
+        designation
+      };
+
+      // Only include draCertified for guest users
+      if (activeTab === 'guest') {
+        payload.draCertified = draCertified;
+      }
+
+      const response = await axios.post(
+        `${API_URL}/api/auth/verify-otp`, 
+        payload, 
+        { headers: { 'Content-Type': 'application/json' } }
+      );
 
       if (response.data.success) {
         const userData = {
@@ -734,17 +711,17 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
           isGuest: response.data.user.isGuest || false,
           name: response.data.user.name || name,
           lender: response.data.user.lender || selectedLender?.label,
+          designation: response.data.user.designation || designation,
+          draCertified: response.data.user.draCertified || draCertified,
           expiresAt: Date.now() + (12 * 60 * 60 * 1000)
         };
-
-        loginBusiness(userData);
-        onLoginSuccess(userData);
-        handleClose();
         
+        loginBusiness(userData);
+        onLoginSuccess?.(userData);
+        handleClose();
+
         if (response.data.user.isAdmin) {
           navigate('/StatusDashboard');
-        } else if (response.data.user.isGuest) {
-          navigate('/BusDashboard');
         } else {
           navigate('/BusDashboard');
         }
@@ -752,7 +729,6 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
         setError(response.data.message || 'OTP verification failed');
       }
     } catch (err) {
-      console.error('OTP verification error:', err);
       if (err.response) {
         if (err.response.status === 400) {
           setError(err.response.data.message || 'Invalid OTP or expired');
@@ -777,6 +753,8 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
     setSelectedLender(null);
     setOtpResendTimer(0);
     setIsAdminEmail(false);
+    setDesignation('');
+    setDraCertified('');
     onClose();
   };
 
@@ -790,105 +768,95 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
     setSelectedLender(null);
     setOtpResendTimer(0);
     setIsAdminEmail(false);
+    setDesignation('');
+    setDraCertified('');
   };
 
   const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      minHeight: '48px',
-      border: '1px solid #ddd',
-      borderRadius: '8px',
-      '&:hover': {
-        borderColor: '#aaa'
-      }
+    control: (provided) => ({ 
+      ...provided, 
+      minHeight: '48px', 
+      border: '1px solid #ddd', 
+      borderRadius: '8px', 
+      '&:hover': { borderColor: '#aaa' }
     }),
-    placeholder: (provided) => ({
-      ...provided,
-      color: '#999',
-    }),
-    menu: (provided) => ({
-      ...provided,
-      zIndex: 9999
-    })
+    placeholder: (p) => ({ ...p, color: '#999' }),
+    menu: (p) => ({ ...p, zIndex: 9999 })
   };
 
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={(e) => {
-        if (e && e.target.classList.contains('close-button')) {
-          handleClose();
-        }
-      }}
+      onRequestClose={handleClose}
       className="login-popup-modal"
       overlayClassName="login-popup-overlay"
-      shouldCloseOnOverlayClick={false} 
-      shouldCloseOnEsc={false} 
+      shouldCloseOnOverlayClick={true}
+      shouldCloseOnEsc={true}
       style={{
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          zIndex: 9999,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '20px'
+        overlay: { 
+          backgroundColor: 'rgba(0,0,0,0.7)', 
+          zIndex: 9999, 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          padding: '20px' 
         },
-        content: {
-          position: 'relative',
-          padding: '0',
-          border: 'none',
-          borderRadius: '12px',
-          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-          maxWidth: '900px',
-          width: '90%',
-          maxHeight: '90vh',
-          overflow: 'auto'
+        content: { 
+          position: 'relative', 
+          padding: 0, 
+          border: 'none', 
+          borderRadius: '12px', 
+          boxShadow: '0 20px 40px rgba(0,0,0,0.3)', 
+          maxWidth: '900px', 
+          width: '90%', 
+          maxHeight: '90vh', 
+          overflow: 'auto' 
         }
       }}
     >
       <div className="login-popup-content">
         <button 
           onClick={handleClose} 
-          className="close-button"
-          style={{
-            position: 'absolute',
-            top: '5px',
-            right: '10px',
-            background: 'rgba(0, 0, 0, 0.24)',
-            border: 'none',
-            borderRadius: '50%',
-            width: '40px',
-            height: '40px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            zIndex: 10000,
-            fontSize: '20px',
-            color: '#000000ff'
+          className="close-button" 
+          style={{ 
+            position: 'absolute', 
+            top: 5, 
+            right: 10, 
+            background: 'rgba(0,0,0,0.24)', 
+            border: 'none', 
+            borderRadius: '50%', 
+            width: 40, 
+            height: 40, 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            cursor: 'pointer', 
+            zIndex: 10000, 
+            fontSize: 20, 
+            color: '#000' 
           }}
         >
           <FiX size={24} />
         </button>
-        
+
         <div className="login-popup-container">
           <div className="login-options">
             <h2>Login to Suppcohort</h2>
             <div className="login-tabs">
               <button 
-                className={`tab-button ${activeTab === 'agency' ? 'active' : ''}`}
+                className={`tab-button ${activeTab === 'agency' ? 'active' : ''}`} 
                 onClick={() => handleTabChange('agency')}
               >
                 Agency Login
               </button>
               <button 
-                className={`tab-button ${activeTab === 'lender' ? 'active' : ''}`}
+                className={`tab-button ${activeTab === 'lender' ? 'active' : ''}`} 
                 onClick={() => handleTabChange('lender')}
               >
                 Lender Login
               </button>
               <button 
-                className={`tab-button ${activeTab === 'guest' ? 'active' : ''}`}
+                className={`tab-button ${activeTab === 'guest' ? 'active' : ''}`} 
                 onClick={() => handleTabChange('guest')}
               >
                 Guest Login
@@ -898,21 +866,24 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
             {error && (
               <div className="error-message">
                 {error}
-                <button onClick={() => setError('')} style={{ marginLeft: '10px', background: 'none', border: 'none', cursor: 'pointer' }}>
+                <button 
+                  onClick={() => setError('')} 
+                  style={{ marginLeft: 10, background: 'none', border: 'none', cursor: 'pointer' }}
+                >
                   ×
                 </button>
               </div>
             )}
 
             <div className="login-form">
-               {activeTab === 'agency' && (
+              {activeTab === 'agency' && (
                 <div className="agency-login-content">
                   <p>Click below to login to your agency account</p>
                   <button 
-                    className="login-submit-button"
+                    className="login-submit-button" 
                     onClick={handleAgencyLoginClick}
                   >
-                    Go to Agency Login <FiArrowRight style={{ marginLeft: '8px' }} />
+                    Go to Agency Login <FiArrowRight style={{ marginLeft: 8 }} />
                   </button>
                 </div>
               )}
@@ -925,20 +896,35 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
                         <label htmlFor="name">Full Name</label>
                         <div className="input-with-icon">
                           <FiUser className="input-icon" />
-                          <input
-                            type="text"
-                            id="name"
-                            placeholder="Enter your full name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
+                          <input 
+                            type="text" 
+                            id="name" 
+                            placeholder="Enter your full name" 
+                            value={name} 
+                            onChange={(e) => setName(e.target.value)} 
+                            required 
+                          />
+                        </div>
+                      </div>
+
+                      <div className="input-group">
+                        <label htmlFor="designation">Designation</label>
+                        <div className="input-with-icon">
+                          <FiUser className="input-icon" />
+                          <input 
+                            type="text" 
+                            id="designation" 
+                            placeholder="e.g. Recovery Manager" 
+                            value={designation} 
+                            onChange={(e) => setDesignation(e.target.value)} 
+                            required 
                           />
                         </div>
                       </div>
 
                       {activeTab === 'lender' && (
                         <div className="input-group">
-                          <label htmlFor="lender-select">Search Lender</label>
+                          <label htmlFor="lender-select">Company Name</label>
                           <div className="lender-select-container">
                             <AsyncSelect
                               id="lender-select"
@@ -951,12 +937,28 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
                               styles={customStyles}
                               isLoading={searchLoading}
                               loadingMessage={() => "Searching lenders..."}
-                              noOptionsMessage={({ inputValue }) => 
-                                inputValue ? "No lenders found" : "Type to search lenders"
-                              }
+                              noOptionsMessage={({ inputValue }) => inputValue ? "No lenders found" : "Type to search lenders"}
                               isClearable
                             />
                           </div>
+                        </div>
+                      )}
+
+                      {/* DRA Certified for GUEST only */}
+                      {activeTab === 'guest' && (
+                        <div className="input-group">
+                          <label>DRA Certified <span style={{ color: 'red' }}>*</span></label>
+                          <select
+                            name="draCertified"
+                            value={draCertified}
+                            onChange={(e) => setDraCertified(e.target.value)}
+                            className="input"
+                            required
+                          >
+                            <option value="">Select DRA Status</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                          </select>
                         </div>
                       )}
 
@@ -967,20 +969,12 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
                           <input
                             type="email"
                             id="email"
-                            placeholder={
-                              activeTab === 'lender' ? "support@company.com" : 
-                              "yourname@company.com (Business email only)"
-                            }
+                            placeholder={activeTab === 'lender' ? "support@company.com" : "yourname@gmail.com"}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                           />
                         </div>
-                        {activeTab === 'guest' && (
-                          <p className="email-note">
-                            📧 Business email required (no Gmail/Yahoo)
-                          </p>
-                        )}
                         {isAdminEmail && (
                           <div className="admin-notice">
                             <span className="admin-icon">⚡</span>
@@ -989,10 +983,16 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
                         )}
                       </div>
 
-                      <button 
+                      <button
                         type="submit"
                         className="login-submit-button"
-                        disabled={isLoading || !email || !name || (activeTab === 'lender' && !selectedLender)}
+                        disabled={
+                          isLoading ||
+                          !email ||
+                          !name ||
+                          (activeTab === 'lender' && !selectedLender) ||
+                          (activeTab === 'guest' && !draCertified)
+                        }
                       >
                         {isLoading ? 'Sending OTP...' : 'Send OTP'}
                       </button>
@@ -1001,8 +1001,8 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
                         <div className="guest-signup-option">
                           <p className="or-divider">New to Suppcohort?</p>
                           <button 
-                            type="button"
-                            className="guest-signup-button"
+                            type="button" 
+                            className="guest-signup-button" 
                             onClick={handleGuestSignupClick}
                           >
                             Create New Guest Account
@@ -1033,8 +1033,8 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
                           ) : (
                             <button 
                               type="button" 
-                              className="resend-otp-btn"
-                              onClick={handleResendOtp}
+                              className="resend-otp-btn" 
+                              onClick={handleResendOtp} 
                               disabled={otpResendTimer > 0}
                             >
                               Resend OTP
@@ -1049,8 +1049,8 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
                         )}
                       </div>
                       <button 
-                        type="submit"
-                        className="login-submit-button"
+                        type="submit" 
+                        className="login-submit-button" 
                         disabled={isLoading || otp.length !== 6}
                       >
                         {isLoading ? 'Verifying...' : `Login as ${isAdminEmail ? 'Admin' : (activeTab === 'lender' ? 'Lender' : 'Guest')}`}
@@ -1074,7 +1074,7 @@ const LoginPopup = ({ isOpen, onClose, onLoginSuccess }) => {
             </div>
             <div className="user-group-card">
               <h4>Admirers / Guests</h4>
-              <p>All Others not in above two categories - Experts, individuals, or companies exploring opportunities, learning, or seeking careers in the industry.</p>
+              <p>All Others not in above two categories - Experts, individuals, or companies exploring opportunities.</p>
             </div>
           </div>
         </div>
